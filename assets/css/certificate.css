@@ -1,0 +1,235 @@
+/* ==========================================
+   ICQA Certificate Layout (A4, refined)
+   ========================================== */
+:root {
+  --cert-primary: #0ea5e9;
+  --cert-title: #1f2937;
+  --cert-text: #111827;
+  --cert-paper: #ffffff;
+  --cert-muted: #6b7280;
+}
+
+/* A4 크기: 화면표시는 794×1123px(96dpi 근사), 인쇄는 @page로 진짜 A4 맞춤 */
+.certificate {
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  width: min(794px, 100%);
+  aspect-ratio: 210 / 297;
+  background: var(--cert-paper);
+  color: var(--cert-text);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 워터마크 (배경 50%) */
+.certificate__watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 12mm;
+  pointer-events: none;
+  opacity: .5;
+  mix-blend-mode: multiply;
+}
+
+.certificate__watermark img {
+  max-width: 70%;
+  height: auto;
+  filter: saturate(.9) contrast(.95);
+}
+
+/* 헤더: 곡선 보더 + 그라디언트 */
+.certificate__ribbon {
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #0b1726 0%, #122131 55%, var(--cert-primary) 100%);
+  opacity: .85;
+}
+
+.certificate__header {
+  position: relative;
+  padding: 28mm 18mm 8mm;
+}
+
+.certificate__brand {
+  display: flex;
+  align-items: center;
+  gap: 10mm;
+}
+
+.certificate__logo {
+  width: auto;
+  height: auto;
+  min-width: 28mm;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.certificate__logo img {
+  display: block;
+  max-height: 20mm;
+  width: auto;
+}
+
+.certificate__brand h3 {
+  margin: 0;
+  letter-spacing: .06em;
+  font-weight: 800;
+  color: #ffffff;
+  font-size: 7mm;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .35);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.certificate__body {
+  position: relative;
+  padding: 8mm 18mm 16mm;
+}
+
+.certificate__title {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-size: 13mm;
+  font-weight: 900;
+  letter-spacing: .02em;
+  color: var(--cert-title);
+  border-bottom: 2.2mm solid var(--cert-primary);
+  padding-bottom: 4mm;
+  margin: 10mm 0 6mm;
+}
+
+.certificate__subtitle {
+  color: var(--cert-muted);
+  letter-spacing: .08em;
+  font-weight: 600;
+  font-size: 3.6mm;
+}
+
+.certificate__name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 11mm;
+  font-weight: 900;
+  margin: 4mm 0 2mm;
+}
+
+.certificate__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6mm;
+  margin-top: 4mm;
+}
+
+.certificate__field .label {
+  color: var(--cert-muted);
+  font-size: 3.5mm;
+  letter-spacing: .06em;
+}
+
+.certificate__field .value {
+  font-weight: 700;
+  font-size: 4mm;
+  margin-top: 1.5mm;
+}
+
+.certificate__footer {
+  margin-top: 14mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 8mm;
+}
+
+.certificate__sign .line {
+  width: 60mm;
+  height: .8mm;
+  background: var(--cert-primary);
+}
+
+.certificate__sign .label {
+  margin-top: 2mm;
+  color: var(--cert-muted);
+  font-size: 3.5mm;
+}
+
+.certificate__seal {
+  width: 26mm;
+  height: 26mm;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fde68a, #f59e0b 60%, #b45309 100%);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, .25), 0 4px 12px rgba(0, 0, 0, .2);
+  border: 1.2mm solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #312e81;
+  font-weight: 800;
+  font-size: 6mm;
+}
+
+.button.ghost {
+  background: transparent;
+  border: 1px solid #93c5fd;
+  color: #1d4ed8;
+}
+
+.button.ghost:hover {
+  background: rgba(147, 197, 253, .12);
+}
+
+/* 모달 내부 여백 */
+#result-body {
+  padding: .5rem;
+}
+
+/* 인쇄 최적화 */
+@page {
+  size: A4 portrait;
+  margin: 12mm;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff;
+  }
+
+  /* 모달 배경/딤 숨김 */
+  #result-modal::backdrop {
+    display: none;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  #result-modal .certificate,
+  #result-modal .certificate * {
+    visibility: visible !important;
+  }
+
+  #result-modal .certificate {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    box-shadow: none;
+    width: auto;
+    height: auto;
+    aspect-ratio: auto;
+    transform: none;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
