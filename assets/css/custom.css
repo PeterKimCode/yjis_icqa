@@ -695,3 +695,77 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
   }
   .no-print{ display:none !important }
 }
+
+/* ===== Full-bleed split sections ===== */
+:root{
+  --tone-a:#1f2a33;   /* 어두운 남청회색 */
+  --tone-b:#2b3946;   /* 조금 밝은 남청회색 */
+  --split-height:70vh;    /* 데스크톱 섹션 높이 */
+  --split-min:520px;      /* 최소 높이 */
+}
+
+.split-wrapper{ padding:0 !important; background:transparent; }
+.split{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  align-items:stretch;
+  min-height:var(--split-min);
+  height:var(--split-height);
+}
+.split .pane{ position:relative; }
+.split .pane.image{
+  overflow:hidden;
+}
+.split .pane.image img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:center;
+}
+.split .pane.content{
+  display:flex; align-items:center; justify-content:center;
+  padding:clamp(24px, 5vw, 64px);
+}
+.split .pane.content > .max{
+  width:min(800px, 90%);
+  color:#edf2f7;
+}
+.split.tone-a{ background:var(--tone-a); }
+.split.tone-b{ background:var(--tone-b); }
+
+/* 좌우 반전 */
+.split.reverse .pane.image{ order:2 }
+.split.reverse .pane.content{ order:1 }
+
+/* 타이포(헤딩/문단) */
+.split h2{ margin:0 0 .75rem; font-size:clamp(28px, 3.2vw, 40px); letter-spacing:.1em }
+.split p{ font-size:clamp(16px, 1.3vw, 18px); line-height:1.75; opacity:.92 }
+
+/* 모바일/태블릿: 위아래 스택 + 충분한 높이 */
+@media (max-width: 980px){
+  .split{ grid-template-columns:1fr; height:auto; min-height:unset }
+  .split .pane.image{ height:40vh; min-height:260px }
+  .split .pane.content{ padding:28px 20px }
+}
+
+/* Spectral 기본 중앙/패딩 간섭 제거 */
+#counseling .inner,
+#management .inner,
+#specialization .inner,
+#research .inner,
+#welfare .inner,
+#administration .inner,
+#education .inner,
+#foreign-language .inner{
+  max-width:none; margin:0; padding:0;
+}
+#counseling.wrapper,
+#management.wrapper,
+#specialization.wrapper,
+#research.wrapper,
+#welfare.wrapper,
+#administration.wrapper,
+#education.wrapper,
+#foreign-language.wrapper{
+  background:transparent; /* 톤은 .split에 적용 */
+}
+/* ===== END ===== */
