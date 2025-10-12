@@ -91,8 +91,30 @@
                                                <div class="inner">
                                                        <header>
                                                                <h2>Contact Us</h2>
-                                                               
+
                                                        </header>
+
+                                                       <form id="contact-form" class="contact-form" action="https://formspree.io/f/TODO" method="POST">
+                                                               <div class="fields">
+                                                                       <div class="field">
+                                                                               <label for="contact-name">Name</label>
+                                                                               <input type="text" id="contact-name" name="name" aria-label="Name" required />
+                                                                       </div>
+                                                                       <div class="field">
+                                                                               <label for="contact-email">Email</label>
+                                                                               <input type="email" id="contact-email" name="email" aria-label="Email" required />
+                                                                       </div>
+                                                                       <div class="field">
+                                                                               <label for="contact-message">Message</label>
+                                                                               <textarea id="contact-message" name="message" aria-label="Message" rows="5" required></textarea>
+                                                                       </div>
+                                                               </div>
+                                                               <input type="text" name="_gotcha" class="honeypot" aria-hidden="true" tabindex="-1" autocomplete="off" />
+                                                               <ul class="actions">
+                                                                       <li><button type="submit" class="button submit">Send Message</button></li>
+                                                               </ul>
+                                                               <div id="contact-form-message" class="form-result" role="status" aria-live="polite" hidden></div>
+                                                       </form>
                                                </div>
                                        </section>
 
@@ -119,25 +141,79 @@
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
-               <script src="assets/js/main.js"></script>
-               <script>
-                       (function() {
-                               var body = document.body;
-                               var header = document.getElementById('header');
-                               if (!header) return;
+                        <script src="assets/js/main.js"></script>
+                        <script>
+                                (function() {
+                                        var body = document.body;
+                                        var header = document.getElementById('header');
+                                        if (!header) return;
 
-                               var toggleScrolledClass = function() {
-                                       if (window.scrollY > 0) {
-                                               body.classList.add('is-scrolled');
-                                       } else {
-                                               body.classList.remove('is-scrolled');
-                                       }
-                               };
+                                        var toggleScrolledClass = function() {
+                                                if (window.scrollY > 0) {
+                                                        body.classList.add('is-scrolled');
+                                                } else {
+                                                        body.classList.remove('is-scrolled');
+                                                }
+                                        };
 
-                               toggleScrolledClass();
-                               window.addEventListener('scroll', toggleScrolledClass, { passive: true });
-                       })();
-               </script>
+                                        toggleScrolledClass();
+                                        window.addEventListener('scroll', toggleScrolledClass, { passive: true });
+                                })();
+                                (function() {
+                                        var form = document.getElementById('contact-form');
+                                        if (!form) return;
+
+                                        var messageContainer = document.getElementById('contact-form-message');
+                                        var submittingText = '메시지를 전송하는 중입니다...';
+                                        var successText = '메시지가 성공적으로 전송되었습니다. 빠른 시일 내에 연락드리겠습니다.';
+                                        var errorText = '메시지 전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+
+                                        form.addEventListener('submit', function(event) {
+                                                event.preventDefault();
+
+                                                if (messageContainer) {
+                                                        messageContainer.textContent = submittingText;
+                                                        messageContainer.classList.remove('success', 'error');
+                                                        messageContainer.hidden = false;
+                                                }
+
+                                                var formData = new FormData(form);
+
+                                                fetch(form.getAttribute('action'), {
+                                                        method: 'POST',
+                                                        headers: { 'Accept': 'application/json' },
+                                                        body: formData
+                                                }).then(function(response) {
+                                                        if (response.ok) {
+                                                                form.reset();
+
+                                                                if (messageContainer) {
+                                                                        messageContainer.textContent = successText;
+                                                                        messageContainer.classList.add('success');
+                                                                        messageContainer.classList.remove('error');
+                                                                        messageContainer.hidden = false;
+                                                                }
+
+                                                                return;
+                                                        }
+
+                                                        return response.json().then(function(body) {
+                                                                var message = body && body.error ? body.error : errorText;
+                                                                throw new Error(message);
+                                                        }).catch(function(error) {
+                                                                throw (error instanceof Error ? error : new Error(errorText));
+                                                        });
+                                                }).catch(function(error) {
+                                                        if (messageContainer) {
+                                                                messageContainer.textContent = error && error.message ? error.message : errorText;
+                                                                messageContainer.classList.add('error');
+                                                                messageContainer.classList.remove('success');
+                                                                messageContainer.hidden = false;
+                                                        }
+                                                });
+                                        });
+                                })();
+                        </script>
 
         </body>
 </html>
