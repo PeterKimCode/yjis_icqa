@@ -646,3 +646,52 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
   .no-print{ display:none !important }
 }
 /* ===== END ICQA Certificate (A4) ===== */
+
+/* --- Visibility & contrast fixes --- */
+.certificate__brand h3{
+  color:#ffffff;                /* 더 진하게 */
+  text-shadow:0 1px 2px rgba(0,0,0,.35);
+}
+
+/* 로고가 동그라미에 묻히지 않도록: 원형 제거 + 크기 확대 */
+.certificate__logo{
+  width:auto; height:auto;
+  min-width:28mm;              /* 워드마크/텍스트가 잘 보이도록 */
+  background:transparent;
+  border-radius:0;
+  box-shadow:none;
+  padding:0;
+}
+.certificate__logo img{ display:block; max-height:20mm; width:auto }
+
+/* 타이틀 위/아래 간격 넓힘 */
+.certificate__title{
+  margin: 10mm 0 6mm;          /* 위/아래 여유 */
+  padding-bottom: 4mm;
+  border-bottom-width: 2.2mm;
+}
+
+/* 워터마크가 텍스트를 과도하게 덮지 않도록 가장자리로 이동(선택) */
+.certificate__watermark{
+  justify-content:flex-end;
+  align-items:flex-start;
+  padding:12mm;
+  opacity:.5;                  /* 50% */
+}
+
+/* 프린트 보정: 모달/배경 숨기고 A4에 정확히 맞춤 */
+@page { size: A4 portrait; margin: 12mm; }
+@media print{
+  html, body{ background:#fff }
+  /* 모달 배경/딤 숨김 */
+  #result-modal::backdrop{ display:none }
+  body *{ visibility:hidden !important }
+  #result-modal .certificate, #result-modal .certificate *{ visibility:visible !important }
+  #result-modal .certificate{
+    position:absolute; inset:0; margin:auto; box-shadow:none;
+    width:auto; height:auto;           /* 인쇄 시 실제 A4로 */
+    aspect-ratio:auto;
+    transform:none;
+  }
+  .no-print{ display:none !important }
+}
