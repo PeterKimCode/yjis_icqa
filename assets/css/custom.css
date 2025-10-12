@@ -1,0 +1,70 @@
+:root {
+  --brand: #0ea5e9; /* 임시 브랜드 컬러, 추후 변경 */
+}
+
+body {
+  font-family: "Pretendard", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.button.primary {
+  background: var(--brand);
+  border-color: var(--brand);
+}
+
+a {
+  color: var(--brand);
+}
+
+#header nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+#header nav a {
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.is-scrolled #header {
+  background-color: rgba(15, 23, 42, 0.85);
+  box-shadow: 0 0.25rem 0.75rem rgba(15, 23, 42, 0.25);
+  backdrop-filter: blur(6px);
+}
+
+body.is-scrolled #header.alt {
+  background-color: rgba(15, 23, 42, 0.85);
+}
+
+@media screen and (max-width: 980px) {
+  #header {
+    position: fixed;
+  }
+
+  #page-wrapper {
+    padding-top: 3.5rem;
+  }
+
+  #header nav ul {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+}
