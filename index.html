@@ -337,90 +337,88 @@
                                 document.querySelectorAll('[data-md]').forEach(loadMD);
                         </script>
                         <script>
-(async function () {
-  const FORM = document.getElementById('verify-form');
-  if (!FORM) return;
+  (async function () {
+    const FORM = document.getElementById('verify-form');
+    if (!FORM) return;
 
-  // 데이터 로딩
-  let REGISTRY = [];
-  try {
-    const res = await fetch('./data/registry.json', { cache: 'no-store' });
-    if (res.ok) REGISTRY = await res.json();
-  } catch (_) {}
+    // 데이터 로딩
+    let REGISTRY = [];
+    try {
+      const res = await fetch('./data/registry.json', { cache: 'no-store' });
+      if (res.ok) REGISTRY = await res.json();
+    } catch (_) {}
 
-  // 모달 핸들러(이미 있으면 기존 것을 사용)
-  const modal = document.getElementById('result-modal');
-  const modalBody = document.getElementById('result-body');
-  const btnClose = modal?.querySelector('.modal__close');
-  const openModal = (html)=>{ modalBody.innerHTML = html; modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; };
-  const closeModal=()=>{ modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
-  btnClose?.addEventListener('click', closeModal);
-  modal?.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
-  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeModal(); });
+    // 모달 헬퍼(기존 있으면 재사용)
+    const modal = document.getElementById('result-modal');
+    const modalBody = document.getElementById('result-body');
+    const btnClose = modal?.querySelector('.modal__close');
+    const openModal = (html)=>{ modalBody.innerHTML = html; modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; };
+    const closeModal=()=>{ modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
+    btnClose?.addEventListener('click', closeModal);
+    modal?.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeModal(); });
 
-  // 유틸
-  const norm = (s)=> (s||'').toString().trim().toLowerCase();
-  const setErr = (el,msg)=>{
-    const p = document.getElementById(el.id==='field-iqn' ? 'err-iqn' : 'err-name');
-    if (msg){ el.setAttribute('aria-invalid','true'); p.textContent=msg; p.hidden=false; }
-    else { el.removeAttribute('aria-invalid'); p.textContent=''; p.hidden=true; }
-  };
+    // 유틸 + 에러 헬퍼
+    const norm = (s)=> (s||'').toString().trim().toLowerCase();
+    const setErr = (el,msg)=>{
+      const p = document.getElementById(el.id==='field-iqn' ? 'err-iqn' : 'err-name');
+      if (msg){ el.setAttribute('aria-invalid','true'); p.textContent=msg; p.hidden=false; }
+      else { el.removeAttribute('aria-invalid'); p.textContent=''; p.hidden=true; }
+    };
+    const iqnOk = (v)=> /^([a-z]{2,4}-?)?\d{3,}$/i.test(v); // 예시 규칙
 
-  // IQN 형식(예시): "IQN-0001" 또는 "0001" 등 허용
-  const iqnOk = (v)=> /^([a-z]{2,4}-?)?\d{3,}$/i.test(v);
+    FORM.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-  FORM.addEventListener('submit', function (e) {
-    e.preventDefault();
+      const iqnEl = document.getElementById('field-iqn');
+      const nameEl = document.getElementById('field-name');
+      const iqn = norm(iqnEl.value);
+      const name = norm(nameEl.value);
 
-    const iqnEl = document.getElementById('field-iqn');
-    const nameEl = document.getElementById('field-name');
-    const iqn = norm(iqnEl.value);
-    const name = norm(nameEl.value);
+      // ✅ 둘 다 필수
+      if (!iqn || !name){
+        setErr(iqnEl, !iqn ? 'Enter IQN.' : '');
+        setErr(nameEl, !name ? 'Enter Name.' : '');
+        (!iqn ? iqnEl : nameEl).focus();
+        return;
+      }
 
-    // 1) 공백 방지: 둘 다 비어 있으면 거절
-    if (!iqn && !name){
-      setErr(iqnEl,'Enter IQN or Name.'); setErr(nameEl,'');
-      iqnEl.focus(); return;
-    }
+      // IQN 형식 체크
+      if (!iqnOk(iqn)){
+        setErr(iqnEl,'Invalid IQN format. (ex: IQN-0001)');
+        iqnEl.focus(); return;
+      }
+      setErr(iqnEl,''); setErr(nameEl,'');
 
-    // 2) IQN 형식(입력된 경우만 검사)
-    if (iqn && !iqnOk(iqn)){
-      setErr(iqnEl,'Invalid IQN format. (ex: IQN-0001)'); setErr(nameEl,'');
-      iqnEl.focus(); return;
-    }
-    setErr(iqnEl,''); setErr(nameEl,'');
+      // ✅ AND 매치(둘 다 부분일치해야 함)
+      const results = REGISTRY.filter(row=>{
+        const ri = norm(row.iqn);
+        const rn = norm(row.name);
+        return ri.includes(iqn) && rn.includes(name);
+      });
 
-    // 3) "입력칸의 값만"으로 필터 (외부 값 사용 없음)
-    const results = REGISTRY.filter(row=>{
-      const ri = norm(row.iqn);
-      const rn = norm(row.name);
-      const hitI = iqn ? ri.includes(iqn) : true;
-      const hitN = name ? rn.includes(name) : true;
-      return hitI && hitN;
+      if (!results.length){
+        openModal('<p>No matching records for BOTH IQN and Name.</p>');
+        return;
+      }
+
+      const rows = results.map(r=>`
+        <tr>
+          <td>${r.iqn}</td>
+          <td>${r.name}</td>
+          <td>${r.program ?? '-'}</td>
+          <td>${r.year ?? '-'}</td>
+        </tr>`).join('');
+
+      openModal(`
+        <h3 style="margin:0;">Search Results</h3>
+        <table class="result-table" aria-label="Qualification search results">
+          <thead><tr><th>IQN</th><th>Name</th><th>Program</th><th>Year</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `);
     });
-
-    if (!results.length){
-      openModal('<p>No matching records.</p>');
-      return;
-    }
-
-    const rows = results.map(r=>`
-      <tr>
-        <td>${r.iqn}</td>
-        <td>${r.name}</td>
-        <td>${r.program ?? '-'}</td>
-        <td>${r.year ?? '-'}</td>
-      </tr>`).join('');
-
-    openModal(`
-      <h3 style="margin:0;">Search Results</h3>
-      <table class="result-table" aria-label="Qualification search results">
-        <thead><tr><th>IQN</th><th>Name</th><th>Program</th><th>Year</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `);
-  });
-})();
+  })();
                         </script>
 
         </body>
