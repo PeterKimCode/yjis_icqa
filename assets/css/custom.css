@@ -758,6 +758,34 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
 #foreign-language .inner{
   max-width:none; margin:0; padding:0;
 }
+/* === Force 2-column split, kill extra panel/overlay === */
+.split{
+  display:grid !important;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important;
+}
+
+/* 혹시 남아있는 3번째 자식/스페이서/그라데이션을 강제 숨김 */
+.split > *:nth-child(n+3){ display:none !important; }
+
+/* 일부 테마가 .split::after, ::before 로 그라데이션을 추가하는 경우 제거 */
+.split::before,
+.split::after{ content:none !important; }
+
+/* 우리가 정의한 pane만 사용 */
+.split .pane{ position:relative }
+.split .pane.image{ overflow:hidden }
+.split .pane.image img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:center;
+}
+
+/* 모바일에서 1열 스택 */
+@media (max-width:980px){
+  .split{ grid-template-columns:1fr !important; }
+}
+
+/* 섹션 wrapper 배경 투명 처리 */
 #counseling.wrapper,
 #management.wrapper,
 #specialization.wrapper,
@@ -765,7 +793,4 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
 #welfare.wrapper,
 #administration.wrapper,
 #education.wrapper,
-#foreign-language.wrapper{
-  background:transparent; /* 톤은 .split에 적용 */
-}
-/* ===== END ===== */
+#foreign-language.wrapper{ background:transparent !important; }
