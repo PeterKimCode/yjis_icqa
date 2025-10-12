@@ -439,6 +439,97 @@
     };
     const iqnOk = (v)=> /^([a-z]{2,4}-?)?\d{3,}$/i.test(v); // 예시 규칙
 
+    function renderCertificate(r){
+      const safe = (v)=> v ?? '–';
+      const year = r.year ?? (r.issueDate ? new Date(r.issueDate).getFullYear() : undefined);
+      const director = r.director ?? 'Director';
+
+      return `
+      <div class="certificate" id="certificate">
+        <div class="certificate__header">
+          <div class="logo">
+            <!-- 로고가 있으면 <img src="./images/icqa-mark.png" alt="ICQA mark" width="56" height="56"> -->
+            <span style="font-weight:800;color:#0ea5e9">ICQA</span>
+          </div>
+          <h3>INTERNATIONAL CIVIL QUALIFICATION ASSOCIATION</h3>
+        </div>
+
+        <div class="certificate__body">
+          <div class="certificate__title">CERTIFICATE OF ACHIEVEMENT</div>
+          <div class="certificate__label">THIS CERTIFICATE IS PROUDLY PRESENTED TO</div>
+          <div class="certificate__name">${safe(r.name)}</div>
+
+          <div class="certificate__row">
+            <div class="certificate__field">
+              <div class="certificate__label">Student #</div>
+              <div class="certificate__value">${safe(r.studentId)}</div>
+            </div>
+            <div class="certificate__field">
+              <div class="certificate__label">Issue Date</div>
+              <div class="certificate__value">${safe(r.issueDate)}</div>
+            </div>
+          </div>
+
+          <div class="certificate__row">
+            <div class="certificate__field">
+              <div class="certificate__label">Program</div>
+              <div class="certificate__value">${safe(r.program)}</div>
+            </div>
+            <div class="certificate__field">
+              <div class="certificate__label">Hours</div>
+              <div class="certificate__value">${safe(r.hours)}</div>
+            </div>
+          </div>
+
+          <div class="certificate__row">
+            <div class="certificate__field">
+              <div class="certificate__label">Certificate Number</div>
+              <div class="certificate__value">${safe(r.certificateId)}</div>
+            </div>
+            <div class="certificate__field">
+              <div class="certificate__label">IQN</div>
+              <div class="certificate__value">${safe(r.iqn)}</div>
+            </div>
+          </div>
+
+          <div class="certificate__footer">
+            <div class="certificate__sign">
+              <div class="line"></div>
+              <div class="certificate__label">${director}</div>
+            </div>
+            <div class="certificate__actions no-print">
+              <button class="button ghost" id="btn-print">Print / Save PDF</button>
+            </div>
+          </div>
+
+          <div class="certificate__seal">${safe(year)}</div>
+        </div>
+      </div>
+    `;
+    }
+
+    function showCertificates(results){
+      let index = 0;
+      function paint(){
+        const html = `
+        ${renderCertificate(results[index])}
+        ${results.length>1 ? `
+          <div style="display:flex;justify-content:space-between;gap:.5rem;margin-top:.75rem" class="no-print">
+            <button class="button" id="btn-prev" ${index===0?'disabled':''}>&larr; Prev</button>
+            <div style="opacity:.8"> ${index+1} / ${results.length} </div>
+            <button class="button" id="btn-next" ${index===results.length-1?'disabled':''}>Next &rarr;</button>
+          </div>` : '' }
+      `;
+        openModal(html);
+
+        const btnPrint = document.getElementById('btn-print');
+        btnPrint?.addEventListener('click', ()=> window.print());
+        document.getElementById('btn-prev')?.addEventListener('click', ()=>{ index=Math.max(0,index-1); paint(); });
+        document.getElementById('btn-next')?.addEventListener('click', ()=>{ index=Math.min(results.length-1,index+1); paint(); });
+      }
+      paint();
+    }
+
     FORM.addEventListener('submit', function (e) {
       e.preventDefault();
 
@@ -474,21 +565,7 @@
         return;
       }
 
-      const rows = results.map(r=>`
-        <tr>
-          <td>${r.iqn}</td>
-          <td>${r.name}</td>
-          <td>${r.program ?? '-'}</td>
-          <td>${r.year ?? '-'}</td>
-        </tr>`).join('');
-
-      openModal(`
-        <h3 style="margin:0;">Search Results</h3>
-        <table class="result-table" aria-label="Qualification search results">
-          <thead><tr><th>IQN</th><th>Name</th><th>Program</th><th>Year</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      `);
+      showCertificates(results);
     });
   })();
                         </script>
