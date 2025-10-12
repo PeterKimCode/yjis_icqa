@@ -107,7 +107,7 @@ body.is-scrolled #header.alt {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.125rem;
+  gap: 0;
   --dd-x: 0;
   --dd-y: -0.35rem;
   transform: translate(var(--dd-x), var(--dd-y));
