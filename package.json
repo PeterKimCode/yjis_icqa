@@ -1,0 +1,8 @@
+{
+  "name": "yjis_icqa",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "content:build": "node scripts/build-content.js"
+  }
+}
