@@ -27,17 +27,18 @@
   position: absolute;
   inset: 0;
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding: 12mm;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
   pointer-events: none;
   opacity: .5;
   mix-blend-mode: multiply;
 }
 
 .certificate__watermark img {
-  max-width: 70%;
+  max-width: 80%;
   height: auto;
+  margin: 0 auto;
   filter: saturate(.9) contrast(.95);
 }
 
@@ -204,9 +205,46 @@
     background: #fff;
   }
 
+  body {
+    margin: 0;
+    min-height: 0;
+  }
+
+  #page-wrapper,
+  body > *:not(#result-modal) {
+    display: none !important;
+  }
+
+  #result-modal {
+    position: static !important;
+    inset: auto;
+    margin: 0;
+    padding: 0;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: transparent !important;
+  }
+
   /* 모달 배경/딤 숨김 */
   #result-modal::backdrop {
     display: none;
+  }
+
+  #result-modal .modal__dialog {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none;
+    background: transparent;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #result-modal .modal__close {
+    display: none !important;
   }
 
   body * {
@@ -219,13 +257,11 @@
   }
 
   #result-modal .certificate {
-    position: absolute;
-    inset: 0;
-    margin: auto;
+    position: static;
+    margin: 0 auto;
     box-shadow: none;
-    width: auto;
-    height: auto;
-    aspect-ratio: auto;
+    width: 210mm;
+    height: 297mm;
     transform: none;
   }
 
