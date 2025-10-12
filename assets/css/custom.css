@@ -157,3 +157,61 @@ body.is-scrolled #header.alt {
     gap: 1rem;
   }
 }
+
+.visually-hidden {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+
+.modal.is-open {
+  display: flex;
+}
+
+.modal__dialog {
+  background: #fff;
+  color: #111;
+  max-width: 720px;
+  width: calc(100% - 2rem);
+  border-radius: 12px;
+  padding: 1.25rem;
+  position: relative;
+}
+
+.modal__close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background: transparent;
+  border: 0;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+}
+
+.result-table th,
+.result-table td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}

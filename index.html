@@ -66,7 +66,25 @@
                                                <a href="#about" class="more scrolly">Learn More</a>
                                         </section>
 
-                                <section id="about" class="wrapper style1">
+                               <section id="verify" class="wrapper style1">
+                                       <div class="inner">
+                                               <h2>Qualification Search</h2>
+                                               <form id="verify-form" class="fields" autocomplete="off">
+                                                       <div class="field">
+                                                               <label class="visually-hidden" for="field-iqn">International qualification number</label>
+                                                               <input type="text" id="field-iqn" name="iqn" placeholder="International qualification number" />
+                                                       </div>
+                                                       <div class="field">
+                                                               <label class="visually-hidden" for="field-name">Name</label>
+                                                               <input type="text" id="field-name" name="name" placeholder="Name" />
+                                                       </div>
+                                                       <ul class="actions">
+                                                               <li><button type="submit" class="button primary">SEARCH</button></li>
+                                                       </ul>
+                                               </form>
+                                       </div>
+                               </section>
+                               <section id="about" class="wrapper style1">
                                         <div class="inner">
                                                 <h2>About</h2>
                                                 <div id="md-about" data-md="content/about.md">Loading…</div>
@@ -157,6 +175,15 @@
                                                         }
                                                 </script>
                                         </footer>
+
+                                       <div id="result-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+                                               <div class="modal__dialog">
+                                                       <button class="modal__close" aria-label="Close">×</button>
+                                                       <div id="result-body">
+                                                               <!-- JS 로 결과 렌더링 -->
+                                                       </div>
+                                               </div>
+                                       </div>
 
 			</div>
 
@@ -257,6 +284,83 @@
                                 }
                                 // 모든 data-md 요소 일괄 처리
                                 document.querySelectorAll('[data-md]').forEach(loadMD);
+                        </script>
+                        <script>
+(async function () {
+  const FORM = document.getElementById('verify-form');
+  if (!FORM) return;
+
+  // 데이터 미리 가져오기(캐시 무효화)
+  let REGISTRY = [];
+  try {
+    const res = await fetch('./data/registry.json', { cache: 'no-store' });
+    if (res.ok) REGISTRY = await res.json();
+  } catch (_) {}
+
+  const modal = document.getElementById('result-modal');
+  const modalBody = document.getElementById('result-body');
+  const btnClose = modal?.querySelector('.modal__close');
+
+  const openModal = (html) => {
+    modalBody.innerHTML = html;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+  btnClose?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+  const normalize = (s) => (s || '').toString().trim().toLowerCase();
+
+  FORM.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const iqn = normalize(document.getElementById('field-iqn').value);
+    const name = normalize(document.getElementById('field-name').value);
+
+    if (!iqn && !name) {
+      openModal('<p>검색 조건을 입력해 주세요.</p>');
+      return;
+    }
+
+    // 필터: IQN 완전/부분 일치, 이름 부분 일치(공백 다중 처리)
+    const results = REGISTRY.filter(row => {
+      const ri = normalize(row.iqn);
+      const rn = normalize(row.name);
+      const iqnHit = iqn ? ri.includes(iqn) : true;
+      const nameHit = name ? rn.includes(name) : true;
+      return iqnHit && nameHit;
+    });
+
+    if (!results.length) {
+      openModal('<p>검색 결과가 없습니다.</p>');
+      return;
+    }
+
+    const rows = results.map(r => `
+      <tr>
+        <td>${r.iqn}</td>
+        <td>${r.name}</td>
+        <td>${r.program ?? '-'}</td>
+        <td>${r.year ?? '-'}</td>
+      </tr>
+    `).join('');
+
+    const html = `
+      <h3 style="margin:0;">Search Results</h3>
+      <table class="result-table" aria-label="Qualification search results">
+        <thead><tr><th>IQN</th><th>Name</th><th>Program</th><th>Year</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+    openModal(html);
+  });
+})();
                         </script>
 
         </body>
