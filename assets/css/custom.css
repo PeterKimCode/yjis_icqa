@@ -779,7 +779,10 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
 #administration .inner,
 #education .inner,
 #foreign-language .inner{
-  max-width:none; margin:0; padding:0;
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:0;
 }
 /* === Force 2-column split, kill extra panel/overlay === */
 .split{
