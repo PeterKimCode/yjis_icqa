@@ -5,13 +5,28 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-	<head>
-		<title>Spectral by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+       <head>
+                <title>ICQA – Inspiring Care, Quality Assured</title>
+                <meta charset="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+                <meta name="description" content="ICQA supports inclusive counseling, education, and management services that uplift every learner." />
+                <meta property="og:locale" content="ko_KR" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="ICQA – Inspiring Care, Quality Assured" />
+                <meta property="og:description" content="ICQA supports inclusive counseling, education, and management services that uplift every learner." />
+                <meta property="og:url" content="https://www.icqa.example.com/" />
+                <meta property="og:image" content="https://www.icqa.example.com/images/banner.jpg" />
+                <meta property="og:site_name" content="ICQA" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="ICQA – Inspiring Care, Quality Assured" />
+                <meta name="twitter:description" content="ICQA supports inclusive counseling, education, and management services that uplift every learner." />
+                <meta name="twitter:image" content="https://www.icqa.example.com/images/banner.jpg" />
+                <!-- TODO: Update favicon assets with final artwork -->
+                <link rel="icon" href="/favicon.ico" />
+                <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
                <link rel="stylesheet" href="assets/css/main.css" />
                <link rel="stylesheet" href="assets/css/custom.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+                <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="landing is-preload">
 
@@ -23,11 +38,11 @@
                                                <h1><a href="index.html">Spectral</a></h1>
                                                <nav id="nav">
                                                        <ul>
-                                                               <li><a class="scrolly" href="#about">About</a></li>
-                                                               <li><a class="scrolly" href="#education">Education</a></li>
-                                                               <li><a class="scrolly" href="#counseling">Counseling</a></li>
-                                                               <li><a class="scrolly" href="#management">Management</a></li>
-                                                               <li><a class="scrolly" href="#contact">Contact</a></li>
+                                                               <li><a class="scrolly" href="#about" aria-label="Scroll to the About section">About</a></li>
+                                                               <li><a class="scrolly" href="#education" aria-label="Scroll to the Education section">Education</a></li>
+                                                               <li><a class="scrolly" href="#counseling" aria-label="Scroll to the Counseling section">Counseling</a></li>
+                                                               <li><a class="scrolly" href="#management" aria-label="Scroll to the Management section">Management</a></li>
+                                                               <li><a class="scrolly" href="#contact" aria-label="Scroll to the Contact section">Contact</a></li>
                                                        </ul>
                                                </nav>
                                        </header>
@@ -119,18 +134,44 @@
                                        </section>
 
 				<!-- Footer -->
-					<footer id="footer">
-						<ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-						</ul>
-						<ul class="copyright">
-							<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-						</ul>
-					</footer>
+                                        <footer id="footer">
+                                                <div class="footer-organization">
+                                                        <p class="footer-organization__name">ICQA Inclusive Center</p>
+                                                        <address class="footer-organization__address">
+                                                                123 Learning Way, Jung-gu, Seoul 04524, Republic of Korea
+                                                        </address>
+                                                        <p class="footer-organization__contact">
+                                                                <a href="tel:+82212345678">+82-2-1234-5678</a> · <a href="mailto:contact@icqa.example.com">contact@icqa.example.com</a>
+                                                        </p>
+                                                </div>
+                                                <ul class="icons">
+                                                        <li><a href="#" class="icon brands fa-twitter" aria-label="ICQA on Twitter"><span class="label">Twitter</span></a></li>
+                                                        <li><a href="#" class="icon brands fa-facebook-f" aria-label="ICQA on Facebook"><span class="label">Facebook</span></a></li>
+                                                        <li><a href="#" class="icon brands fa-instagram" aria-label="ICQA on Instagram"><span class="label">Instagram</span></a></li>
+                                                        <li><a href="#" class="icon brands fa-dribbble" aria-label="ICQA on Dribbble"><span class="label">Dribbble</span></a></li>
+                                                        <li><a href="mailto:contact@icqa.example.com" class="icon solid fa-envelope" aria-label="Email ICQA"><span class="label">Email</span></a></li>
+                                                </ul>
+                                                <ul class="copyright">
+                                                        <li>&copy; ICQA</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                                                </ul>
+                                                <script type="application/ld+json">
+                                                        {
+                                                                "@context": "https://schema.org",
+                                                                "@type": "Organization",
+                                                                "name": "ICQA Inclusive Center",
+                                                                "url": "https://www.icqa.example.com/",
+                                                                "email": "contact@icqa.example.com",
+                                                                "telephone": "+82-2-1234-5678",
+                                                                "address": {
+                                                                        "@type": "PostalAddress",
+                                                                        "streetAddress": "123 Learning Way",
+                                                                        "addressLocality": "Seoul",
+                                                                        "postalCode": "04524",
+                                                                        "addressCountry": "KR"
+                                                                }
+                                                        }
+                                                </script>
+                                        </footer>
 
 			</div>
 
