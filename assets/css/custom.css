@@ -319,3 +319,61 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
   text-align: left;
 }
 
+:root{
+  /* Section brand tokens */
+  --sec-counseling:      #4f46e5; /* indigo-600  | white text */
+  --sec-management:      #0f766e; /* teal-700    | white text */
+  --sec-specialization:  #9333ea; /* violet-600  | white text */
+  --sec-research:        #1f2937; /* slate-800   | white text */
+  --sec-welfare:         #f8fafc; /* gray-50     | dark text */
+  --sec-administration:  #92400e; /* amber-800   | white text */
+  --sec-education:       #0369a1; /* sky-800     | white text */
+  --sec-foreign:         #6d28d9; /* purple-700  | white text */
+}
+
+/* 공통: 각 섹션 타이포/링크/버튼 대비 보정 */
+.section-dark { color:#f3f4f6; }
+.section-dark a{ color:#93c5fd; }
+.section-dark .button.primary{ background:#38bdf8; border-color:#38bdf8; color:#0b1220; }
+.section-light { color:#111827; }
+.section-light a{ color:#0ea5e9; }
+.section-light .button.primary{ background:#0ea5e9; border-color:#0ea5e9; color:#fff; }
+
+/* 섹션별 적용 (ID 타겟팅으로 전역 .wrapper 규칙에 영향 받지 않게) */
+#counseling.wrapper      { background:var(--sec-counseling);     }
+#management.wrapper      { background:var(--sec-management);     }
+#specialization.wrapper  { background:var(--sec-specialization); }
+#research.wrapper        { background:var(--sec-research);       }
+#welfare.wrapper         { background:var(--sec-welfare);        }
+#administration.wrapper  { background:var(--sec-administration); }
+#education.wrapper       { background:var(--sec-education);      }
+#foreign-language.wrapper{ background:var(--sec-foreign);        }
+
+/* 다크/라이트 분기(가독성) */
+#counseling.wrapper,
+#management.wrapper,
+#specialization.wrapper,
+#research.wrapper,
+#administration.wrapper,
+#education.wrapper,
+#foreign-language.wrapper { color:#f3f4f6; }
+#welfare.wrapper          { color:#111827; }
+
+/* 헤딩/본문 좌측 정렬(필요한 섹션만) */
+#management .inner,
+#counseling .inner,
+#specialization .inner,
+#research .inner,
+#welfare .inner,
+#administration .inner,
+#education .inner,
+#foreign-language .inner { text-align:left; max-width:60rem; margin:0 auto; }
+
+/* 전역 .wrapper 배경을 덮어쓰는 규칙이 있다면 무력화(중복 방지용) */
+.wrapper{ background:transparent; }
+
+/* 스펙트럴의 밑줄/장식이 섹션 배경색과 충돌하면 제거 */
+.wrapper .major:after{ background:rgba(255,255,255,.45); }
+/* welfare(라이트) 섹션은 진한 줄로 대체 */
+#welfare .major:after{ background:#111827; }
+
