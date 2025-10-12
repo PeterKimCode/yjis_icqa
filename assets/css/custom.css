@@ -137,6 +137,18 @@ body.is-scrolled #header.alt {
 }
 
 /* 섹션별 미세 튜닝(필요시) */
+#management .inner {
+  text-align: left;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+#management h2,
+#management h3,
+#management p {
+  margin-left: 0;
+}
+
 #management.wrapper.special .button {
   background: #064e3b;
   border-color: #064e3b;
