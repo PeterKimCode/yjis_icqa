@@ -431,25 +431,21 @@
 
         <script>
 (function(){
-  const dd = document.querySelector('.nav-dropdown');
+  const dd  = document.querySelector('.nav-dropdown');
   if(!dd) return;
-  const btn  = dd.querySelector('.nav-dropdown__toggle');
-  const menu = dd.querySelector('.nav-dropdown__menu');
+  const btn = dd.querySelector('.nav-dropdown__toggle');
+  const menu= dd.querySelector('.nav-dropdown__menu');
 
-  function toggle(open){
+  const toggle = (open)=>{
     const isOpen = open ?? !dd.classList.contains('open');
     dd.classList.toggle('open', isOpen);
     btn.setAttribute('aria-expanded', String(isOpen));
-  }
+  };
 
-  // 터치/모바일 클릭으로 열기/닫기
-  btn.addEventListener('click', function(e){
-    // 데스크탑에서도 클릭시 페이지 점프 방지
-    e.preventDefault();
-    toggle();
-  });
+  // 터치/모바일: 탭으로 열고 닫기
+  btn.addEventListener('click', (e)=>{ e.preventDefault(); toggle(); });
 
-  // 바깥 클릭/ESC로 닫기
+  // 바깥 클릭/ESC 닫기
   document.addEventListener('click', (e)=>{ if(!dd.contains(e.target)) toggle(false); });
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') toggle(false); });
 })();
