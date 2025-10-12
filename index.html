@@ -67,7 +67,7 @@
                                         <section id="banner">
                                                 <div class="inner">
                                                         <span class="logo">
-                                                                <img src="./images/hero_logo.svg" alt="ICQA 로고" width="200" height="200" loading="lazy" />
+                                                                <img src="./images/icqa-logo.png" alt="ICQA 로고" width="200" height="200" loading="lazy" />
                                                                 <!-- TODO: Replace hero_logo.svg with finalized ICQA logo asset -->
                                                         </span>
                                                         <h2>ICQA – Inspiring Care, Quality Assured</h2>
@@ -90,13 +90,11 @@
                                                                        <input type="text" id="field-iqn" name="iqn" placeholder="International qualification number" inputmode="latin" />
                                                                        <p class="error-text" id="err-iqn" hidden></p>
                                                                </div>
-
                                                                <div class="field">
                                                                        <label class="visually-hidden" for="field-name">Name</label>
                                                                        <input type="text" id="field-name" name="name" placeholder="Name" />
                                                                        <p class="error-text" id="err-name" hidden></p>
                                                                </div>
-
                                                                <ul class="actions">
                                                                        <li><button type="submit" class="button primary">SEARCH</button></li>
                                                                </ul>
@@ -341,6 +339,7 @@
                                         } catch (e) {
                                                 el.innerHTML = '<p style="color:#f66">콘텐츠를 불러오지 못했습니다: ' + (e.message || e) + '</p>';
                                         }
+
                                 }
                                 // 모든 data-md 요소 일괄 처리
                                 document.querySelectorAll('[data-md]').forEach(loadMD);
