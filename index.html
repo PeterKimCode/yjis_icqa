@@ -42,27 +42,21 @@
                                               <nav id="nav">
                                                      <ul>
                                                              <li><a class="scrolly" href="#about">About</a></li>
-
-                                                             <!-- ▼ Dropdown: Qualification Information -->
-                                                             <li class="nav-dropdown">
-                                                                     <a href="#qualification-info"
-                                                                        class="nav-dropdown__toggle"
-                                                                        aria-haspopup="true"
-                                                                        aria-expanded="false">
-                                                                             Qualification Information
-                                                                     </a>
-                                                                     <ul class="nav-dropdown__menu" role="menu">
-                                                                             <li><a class="scrolly" href="#counseling"       role="menuitem">Counseling</a></li>
-                                                                             <li><a class="scrolly" href="#management"       role="menuitem">Management</a></li>
-                                                                             <li><a class="scrolly" href="#specialization"   role="menuitem">Specialization</a></li>
-                                                                             <li><a class="scrolly" href="#research"         role="menuitem">Research</a></li>
-                                                                             <li><a class="scrolly" href="#welfare"          role="menuitem">Welfare</a></li>
-                                                                             <li><a class="scrolly" href="#administration"   role="menuitem">Administration</a></li>
-                                                                             <li><a class="scrolly" href="#education"        role="menuitem">Education</a></li>
-                                                                             <li><a class="scrolly" href="#foreign-language" role="menuitem">Foreign Language</a></li>
-                                                                     </ul>
-                                                             </li>
-                                                             <!-- ▲ Dropdown -->
+                                                            <li class="nav-dropdown">
+                                                                    <a href="#qualification-info" class="nav-dropdown__toggle" aria-haspopup="true" aria-expanded="false">
+                                                                            Qualification Information
+                                                                    </a>
+                                                                    <ul class="nav-dropdown__menu" role="menu">
+                                                                            <li><a class="scrolly" href="#counseling" role="menuitem">Counseling</a></li>
+                                                                            <li><a class="scrolly" href="#management" role="menuitem">Management</a></li>
+                                                                            <li><a class="scrolly" href="#specialization" role="menuitem">Specialization</a></li>
+                                                                            <li><a class="scrolly" href="#research" role="menuitem">Research</a></li>
+                                                                            <li><a class="scrolly" href="#welfare" role="menuitem">Welfare</a></li>
+                                                                            <li><a class="scrolly" href="#administration" role="menuitem">Administration</a></li>
+                                                                            <li><a class="scrolly" href="#education" role="menuitem">Education</a></li>
+                                                                            <li><a class="scrolly" href="#foreign-language" role="menuitem">Foreign Language</a></li>
+                                                                    </ul>
+                                                            </li>
 
                                                              <li><a class="scrolly" href="#contact">Contact</a></li>
                                                      </ul>
@@ -436,28 +430,29 @@
                         </script>
 
         <script>
-          (function () {
-            const dd = document.querySelector('.nav-dropdown');
-            if (!dd) return;
-            const btn  = dd.querySelector('.nav-dropdown__toggle');
-            const menu = dd.querySelector('.nav-dropdown__menu');
+(function(){
+  const dd = document.querySelector('.nav-dropdown');
+  if(!dd) return;
+  const btn  = dd.querySelector('.nav-dropdown__toggle');
+  const menu = dd.querySelector('.nav-dropdown__menu');
 
-            function toggle(open) {
-              const isOpen = open ?? !dd.classList.contains('open');
-              dd.classList.toggle('open', isOpen);
-              btn.setAttribute('aria-expanded', String(isOpen));
-            }
-            btn.addEventListener('click', (e) => { e.preventDefault(); toggle(); });
-            btn.addEventListener('keydown', (e) => {
-              if (e.key === 'ArrowDown') { e.preventDefault(); toggle(true); menu.querySelector('a')?.focus(); }
-            });
-            document.addEventListener('click', (e) => { if (!dd.contains(e.target)) toggle(false); });
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') toggle(false); });
+  function toggle(open){
+    const isOpen = open ?? !dd.classList.contains('open');
+    dd.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', String(isOpen));
+  }
 
-            // 데스크탑 호버로도 열림
-            dd.addEventListener('mouseenter', () => toggle(true));
-            dd.addEventListener('mouseleave', () => toggle(false));
-          })();
+  // 터치/모바일 클릭으로 열기/닫기
+  btn.addEventListener('click', function(e){
+    // 데스크탑에서도 클릭시 페이지 점프 방지
+    e.preventDefault();
+    toggle();
+  });
+
+  // 바깥 클릭/ESC로 닫기
+  document.addEventListener('click', (e)=>{ if(!dd.contains(e.target)) toggle(false); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') toggle(false); });
+})();
         </script>
 
         </body>
