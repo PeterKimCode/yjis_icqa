@@ -82,6 +82,63 @@ body.is-scrolled #header.alt {
   color: #ffffff;
 }
 
+/* Navigation dropdown */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown__toggle {
+  cursor: pointer;
+}
+
+.nav-dropdown__menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(8px);
+  min-width: 16rem;
+  padding: 0.5rem 0;
+  margin-top: 0.25rem;
+  border-radius: 0.5rem;
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(6px) saturate(1.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0s linear 0.16s;
+}
+
+.nav-dropdown__menu li {
+  list-style: none;
+}
+
+.nav-dropdown__menu a {
+  display: block;
+  padding: 0.6rem 1rem;
+  color: #e5e7eb;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-dropdown__menu a:hover,
+.nav-dropdown__menu a:focus {
+  background: rgba(59, 130, 246, 0.22);
+  color: #ffffff;
+}
+
+.nav-dropdown:hover > .nav-dropdown__menu,
+.nav-dropdown:focus-within > .nav-dropdown__menu,
+.nav-dropdown.open > .nav-dropdown__menu {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0s;
+}
+
 .contact-form .honeypot {
   display: none !important;
 }
@@ -167,6 +224,22 @@ body.is-scrolled #header.alt {
     flex-wrap: wrap;
     justify-content: flex-end;
     gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-dropdown {
+    position: static;
+  }
+
+  .nav-dropdown__menu {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    background: rgba(17, 24, 39, 0.9);
+    margin: 0.25rem 0 0;
+    min-width: 0;
   }
 }
 
