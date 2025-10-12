@@ -68,19 +68,26 @@
 
                                <section id="verify" class="wrapper style1">
                                        <div class="inner">
-                                               <h2>Qualification Search</h2>
-                                               <form id="verify-form" class="fields" autocomplete="off">
-                                                       <div class="field">
-                                                               <label class="visually-hidden" for="field-iqn">International qualification number</label>
-                                                               <input type="text" id="field-iqn" name="iqn" placeholder="International qualification number" />
+                                               <h2>QUALIFICATION SEARCH</h2>
+
+                                               <form id="verify-form" class="verify-inline" autocomplete="off" novalidate>
+                                                       <div class="form-row">
+                                                               <div class="field">
+                                                                       <label class="visually-hidden" for="field-iqn">International qualification number</label>
+                                                                       <input type="text" id="field-iqn" name="iqn" placeholder="International qualification number" inputmode="latin" />
+                                                                       <p class="error-text" id="err-iqn" hidden></p>
+                                                               </div>
+
+                                                               <div class="field">
+                                                                       <label class="visually-hidden" for="field-name">Name</label>
+                                                                       <input type="text" id="field-name" name="name" placeholder="Name" />
+                                                                       <p class="error-text" id="err-name" hidden></p>
+                                                               </div>
+
+                                                               <ul class="actions">
+                                                                       <li><button type="submit" class="button primary">SEARCH</button></li>
+                                                               </ul>
                                                        </div>
-                                                       <div class="field">
-                                                               <label class="visually-hidden" for="field-name">Name</label>
-                                                               <input type="text" id="field-name" name="name" placeholder="Name" />
-                                                       </div>
-                                                       <ul class="actions">
-                                                               <li><button type="submit" class="button primary">SEARCH</button></li>
-                                                       </ul>
                                                </form>
                                        </div>
                                </section>
@@ -290,75 +297,84 @@
   const FORM = document.getElementById('verify-form');
   if (!FORM) return;
 
-  // 데이터 미리 가져오기(캐시 무효화)
+  // 데이터 로딩
   let REGISTRY = [];
   try {
     const res = await fetch('./data/registry.json', { cache: 'no-store' });
     if (res.ok) REGISTRY = await res.json();
   } catch (_) {}
 
+  // 모달 핸들러(이미 있으면 기존 것을 사용)
   const modal = document.getElementById('result-modal');
   const modalBody = document.getElementById('result-body');
   const btnClose = modal?.querySelector('.modal__close');
-
-  const openModal = (html) => {
-    modalBody.innerHTML = html;
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  };
-  const closeModal = () => {
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  };
+  const openModal = (html)=>{ modalBody.innerHTML = html; modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; };
+  const closeModal=()=>{ modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
   btnClose?.addEventListener('click', closeModal);
-  modal?.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+  modal?.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeModal(); });
 
-  const normalize = (s) => (s || '').toString().trim().toLowerCase();
+  // 유틸
+  const norm = (s)=> (s||'').toString().trim().toLowerCase();
+  const setErr = (el,msg)=>{
+    const p = document.getElementById(el.id==='field-iqn' ? 'err-iqn' : 'err-name');
+    if (msg){ el.setAttribute('aria-invalid','true'); p.textContent=msg; p.hidden=false; }
+    else { el.removeAttribute('aria-invalid'); p.textContent=''; p.hidden=true; }
+  };
+
+  // IQN 형식(예시): "IQN-0001" 또는 "0001" 등 허용
+  const iqnOk = (v)=> /^([a-z]{2,4}-?)?\d{3,}$/i.test(v);
 
   FORM.addEventListener('submit', function (e) {
     e.preventDefault();
-    const iqn = normalize(document.getElementById('field-iqn').value);
-    const name = normalize(document.getElementById('field-name').value);
 
-    if (!iqn && !name) {
-      openModal('<p>검색 조건을 입력해 주세요.</p>');
-      return;
+    const iqnEl = document.getElementById('field-iqn');
+    const nameEl = document.getElementById('field-name');
+    const iqn = norm(iqnEl.value);
+    const name = norm(nameEl.value);
+
+    // 1) 공백 방지: 둘 다 비어 있으면 거절
+    if (!iqn && !name){
+      setErr(iqnEl,'Enter IQN or Name.'); setErr(nameEl,'');
+      iqnEl.focus(); return;
     }
 
-    // 필터: IQN 완전/부분 일치, 이름 부분 일치(공백 다중 처리)
-    const results = REGISTRY.filter(row => {
-      const ri = normalize(row.iqn);
-      const rn = normalize(row.name);
-      const iqnHit = iqn ? ri.includes(iqn) : true;
-      const nameHit = name ? rn.includes(name) : true;
-      return iqnHit && nameHit;
+    // 2) IQN 형식(입력된 경우만 검사)
+    if (iqn && !iqnOk(iqn)){
+      setErr(iqnEl,'Invalid IQN format. (ex: IQN-0001)'); setErr(nameEl,'');
+      iqnEl.focus(); return;
+    }
+    setErr(iqnEl,''); setErr(nameEl,'');
+
+    // 3) "입력칸의 값만"으로 필터 (외부 값 사용 없음)
+    const results = REGISTRY.filter(row=>{
+      const ri = norm(row.iqn);
+      const rn = norm(row.name);
+      const hitI = iqn ? ri.includes(iqn) : true;
+      const hitN = name ? rn.includes(name) : true;
+      return hitI && hitN;
     });
 
-    if (!results.length) {
-      openModal('<p>검색 결과가 없습니다.</p>');
+    if (!results.length){
+      openModal('<p>No matching records.</p>');
       return;
     }
 
-    const rows = results.map(r => `
+    const rows = results.map(r=>`
       <tr>
         <td>${r.iqn}</td>
         <td>${r.name}</td>
         <td>${r.program ?? '-'}</td>
         <td>${r.year ?? '-'}</td>
-      </tr>
-    `).join('');
+      </tr>`).join('');
 
-    const html = `
+    openModal(`
       <h3 style="margin:0;">Search Results</h3>
       <table class="result-table" aria-label="Qualification search results">
         <thead><tr><th>IQN</th><th>Name</th><th>Program</th><th>Year</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
-    `;
-    openModal(html);
+    `);
   });
 })();
                         </script>
