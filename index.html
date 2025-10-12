@@ -24,7 +24,8 @@
                 <!-- TODO: Update favicon assets with final artwork -->
                 <link rel="icon" href="favicon.ico" />
                 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-               <link rel="stylesheet" href="assets/css/main.css" />
+                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="assets/css/main.css" />
                <link rel="stylesheet" href="assets/css/custom.css" />
                 <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
                 <!-- Markdown 파서 + XSS 방지 -->
@@ -441,71 +442,73 @@
 
     function renderCertificate(r){
       const safe = (v)=> v ?? '–';
-      const year = r.year ?? (r.issueDate ? new Date(r.issueDate).getFullYear() : undefined);
+      const year = r.year ?? (r.issueDate ? new Date(r.issueDate).getFullYear() : '');
       const director = r.director ?? 'Director';
+      const wm = r.watermark || './images/cert-watermark.png';
 
       return `
-      <div class="certificate" id="certificate">
-        <div class="certificate__header">
-          <div class="logo">
-            <!-- 로고가 있으면 <img src="./images/icqa-mark.png" alt="ICQA mark" width="56" height="56"> -->
-            <span style="font-weight:800;color:#0ea5e9">ICQA</span>
+        <div class="certificate" id="certificate">
+          <div class="certificate__ribbon" aria-hidden="true"></div>
+          <div class="certificate__watermark" aria-hidden="true">
+            <img src="${wm}" alt="">
           </div>
-          <h3>INTERNATIONAL CIVIL QUALIFICATION ASSOCIATION</h3>
+
+          <div class="certificate__header">
+            <div class="certificate__brand">
+              <div class="certificate__logo">
+                <!-- 로고 이미지 있으면 아래 주석 해제 -->
+                <!-- <img src="./images/icqa-mark.png" alt="ICQA mark" width="64" height="64"> -->
+                <span style="font-weight:800;color:var(--cert-primary)">ICQA</span>
+              </div>
+              <h3>INTERNATIONAL CIVIL QUALIFICATION ASSOCIATION</h3>
+            </div>
+          </div>
+
+          <div class="certificate__body">
+            <div class="certificate__title">CERTIFICATE OF ACHIEVEMENT</div>
+            <div class="certificate__subtitle">THIS CERTIFICATE IS PROUDLY PRESENTED TO</div>
+            <div class="certificate__name">${safe(r.name)}</div>
+
+            <div class="certificate__grid">
+              <div class="certificate__field">
+                <div class="label">Student #</div>
+                <div class="value">${safe(r.studentId)}</div>
+              </div>
+              <div class="certificate__field">
+                <div class="label">Issue Date</div>
+                <div class="value">${safe(r.issueDate)}</div>
+              </div>
+              <div class="certificate__field">
+                <div class="label">Program</div>
+                <div class="value">${safe(r.program)}</div>
+              </div>
+              <div class="certificate__field">
+                <div class="label">Hours</div>
+                <div class="value">${safe(r.hours)}</div>
+              </div>
+              <div class="certificate__field">
+                <div class="label">Certificate Number</div>
+                <div class="value">${safe(r.certificateId)}</div>
+              </div>
+              <div class="certificate__field">
+                <div class="label">IQN</div>
+                <div class="value">${safe(r.iqn)}</div>
+              </div>
+            </div>
+
+            <div class="certificate__footer">
+              <div class="certificate__sign">
+                <div class="line"></div>
+                <div class="label">${director}</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8mm" class="no-print">
+                <button class="button ghost" id="btn-print">Print / Save PDF</button>
+                <div class="certificate__seal">${safe(year)}</div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="certificate__body">
-          <div class="certificate__title">CERTIFICATE OF ACHIEVEMENT</div>
-          <div class="certificate__label">THIS CERTIFICATE IS PROUDLY PRESENTED TO</div>
-          <div class="certificate__name">${safe(r.name)}</div>
-
-          <div class="certificate__row">
-            <div class="certificate__field">
-              <div class="certificate__label">Student #</div>
-              <div class="certificate__value">${safe(r.studentId)}</div>
-            </div>
-            <div class="certificate__field">
-              <div class="certificate__label">Issue Date</div>
-              <div class="certificate__value">${safe(r.issueDate)}</div>
-            </div>
-          </div>
-
-          <div class="certificate__row">
-            <div class="certificate__field">
-              <div class="certificate__label">Program</div>
-              <div class="certificate__value">${safe(r.program)}</div>
-            </div>
-            <div class="certificate__field">
-              <div class="certificate__label">Hours</div>
-              <div class="certificate__value">${safe(r.hours)}</div>
-            </div>
-          </div>
-
-          <div class="certificate__row">
-            <div class="certificate__field">
-              <div class="certificate__label">Certificate Number</div>
-              <div class="certificate__value">${safe(r.certificateId)}</div>
-            </div>
-            <div class="certificate__field">
-              <div class="certificate__label">IQN</div>
-              <div class="certificate__value">${safe(r.iqn)}</div>
-            </div>
-          </div>
-
-          <div class="certificate__footer">
-            <div class="certificate__sign">
-              <div class="line"></div>
-              <div class="certificate__label">${director}</div>
-            </div>
-            <div class="certificate__actions no-print">
-              <button class="button ghost" id="btn-print">Print / Save PDF</button>
-            </div>
-          </div>
-
-          <div class="certificate__seal">${safe(year)}</div>
-        </div>
-      </div>
-    `;
+      `;
     }
 
     function showCertificates(results){
