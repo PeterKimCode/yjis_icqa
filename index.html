@@ -22,11 +22,14 @@
                 <meta name="twitter:description" content="ICQA supports inclusive counseling, education, and management services that uplift every learner." />
                 <meta name="twitter:image" content="https://www.icqa.example.com/images/banner.jpg" />
                 <!-- TODO: Update favicon assets with final artwork -->
-                <link rel="icon" href="/favicon.ico" />
-                <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+                <link rel="icon" href="favicon.ico" />
+                <link rel="apple-touch-icon" href="apple-touch-icon.png" />
                <link rel="stylesheet" href="assets/css/main.css" />
                <link rel="stylesheet" href="assets/css/custom.css" />
                 <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+                <!-- Markdown 파서 + XSS 방지 -->
+                <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
 	</head>
 	<body class="landing is-preload">
 
@@ -61,79 +64,69 @@
                                                <a href="#about" class="more scrolly">Learn More</a>
                                         </section>
 
-                                <!-- About -->
-                                       <section id="about" class="wrapper style1 special">
-                                               <div class="inner">
-                                                       <header class="major">
-                                                               <h2>About Our Center</h2>
-                                                               
-                                                       </header>
+                               <section id="about" class="wrapper style1 special">
+                                       <div class="inner">
+                                               <header class="major">
+                                                       <h2>About</h2>
+                                               </header>
+                                               <div id="md-about" data-md="content/about.md">Loading…</div>
+                                       </div>
+                               </section>
+                               <section id="education" class="wrapper alt style2">
+                                       <section class="spotlight">
+                                               <div class="content">
+                                                       <h2>Education</h2>
+                                                       <div id="md-education" data-md="content/education.md">Loading…</div>
                                                </div>
                                        </section>
+                               </section>
+                               <section id="counseling" class="wrapper style3 special">
+                                       <div class="inner">
+                                               <header class="major">
+                                                       <h2>Counseling</h2>
+                                               </header>
+                                               <div id="md-counseling" data-md="content/counseling.md">Loading…</div>
+                                       </div>
+                               </section>
+                               <section id="management" class="wrapper style2">
+                                       <div class="inner">
+                                               <header class="major">
+                                                       <h2>Management</h2>
+                                               </header>
+                                               <div id="md-management" data-md="content/management.md">Loading…</div>
+                                       </div>
+                               </section>
+                               <section id="contact" class="wrapper style4">
+                                       <div class="inner">
+                                               <header>
+                                                       <h2>Contact</h2>
+                                               </header>
+                                               <div id="md-contact" data-md="content/contact.md">Loading…</div>
+                                               <form id="contact-form" class="contact-form" action="https://formspree.io/f/TODO" method="POST">
+                                                        <div class="fields">
+                                                                <div class="field">
+                                                                        <label for="contact-name">Name</label>
+                                                                        <input type="text" id="contact-name" name="name" aria-label="Name" required />
+                                                                </div>
+                                                                <div class="field">
+                                                                        <label for="contact-email">Email</label>
+                                                                        <input type="email" id="contact-email" name="email" aria-label="Email" required />
+                                                                </div>
+                                                                <div class="field">
+                                                                        <label for="contact-message">Message</label>
+                                                                        <textarea id="contact-message" name="message" aria-label="Message" rows="5" required></textarea>
+                                                                </div>
+                                                        </div>
+                                                        <input type="text" name="_gotcha" class="honeypot" aria-hidden="true" tabindex="-1" autocomplete="off" />
+                                                        <ul class="actions">
+                                                                <li><button type="submit" class="button submit">Send Message</button></li>
+                                                        </ul>
+                                                        <div id="contact-form-message" class="form-result" role="status" aria-live="polite" hidden></div>
+                                                </form>
+                                        </div>
+                                </section>
 
-                                <!-- Education -->
-                                       <section id="education" class="wrapper alt style2">
-                                               <section class="spotlight">
-                                                       <div class="content">
-                                                               <h2>Education Programs</h2>
-                                                               
-                                                       </div>
-                                               </section>
-                                       </section>
-
-                                <!-- Counseling -->
-                                       <section id="counseling" class="wrapper style3 special">
-                                               <div class="inner">
-                                                       <header class="major">
-                                                               <h2>Counseling Services</h2>
-                                                               
-                                                       </header>
-                                               </div>
-                                       </section>
-
-                                <!-- Management -->
-                                       <section id="management" class="wrapper style2">
-                                               <div class="inner">
-                                                       <header class="major">
-                                                               <h2>Management Support</h2>
-                                                               
-                                                       </header>
-                                               </div>
-                                       </section>
-
-                                <!-- Contact -->
-                                       <section id="contact" class="wrapper style4">
-                                               <div class="inner">
-                                                       <header>
-                                                               <h2>Contact Us</h2>
-
-                                                       </header>
-
-                                                       <form id="contact-form" class="contact-form" action="https://formspree.io/f/TODO" method="POST">
-                                                               <div class="fields">
-                                                                       <div class="field">
-                                                                               <label for="contact-name">Name</label>
-                                                                               <input type="text" id="contact-name" name="name" aria-label="Name" required />
-                                                                       </div>
-                                                                       <div class="field">
-                                                                               <label for="contact-email">Email</label>
-                                                                               <input type="email" id="contact-email" name="email" aria-label="Email" required />
-                                                                       </div>
-                                                                       <div class="field">
-                                                                               <label for="contact-message">Message</label>
-                                                                               <textarea id="contact-message" name="message" aria-label="Message" rows="5" required></textarea>
-                                                                       </div>
-                                                               </div>
-                                                               <input type="text" name="_gotcha" class="honeypot" aria-hidden="true" tabindex="-1" autocomplete="off" />
-                                                               <ul class="actions">
-                                                                       <li><button type="submit" class="button submit">Send Message</button></li>
-                                                               </ul>
-                                                               <div id="contact-form-message" class="form-result" role="status" aria-live="polite" hidden></div>
-                                                       </form>
-                                               </div>
-                                       </section>
-
-				<!-- Footer -->
+                                <!-- Footer -->
                                         <footer id="footer">
                                                 <div class="footer-organization">
                                                         <p class="footer-organization__name">ICQA Inclusive Center</p>
@@ -254,6 +247,24 @@
                                                 });
                                         });
                                 })();
+                        </script>
+                        <script>
+                                // 간단 로더: data-md 속성에 지정한 경로를 fetch → Markdown → HTML 로 삽입
+                                async function loadMD(el) {
+                                        const path = el.getAttribute('data-md');
+                                        try {
+                                                const res = await fetch(path, { cache: 'no-cache' });
+                                                if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+                                                const text = await res.text();
+                                                // Markdown(마크다운) → HTML 변환, DOMPurify로 안전화
+                                                const html = DOMPurify.sanitize(marked.parse(text));
+                                                el.innerHTML = html;
+                                        } catch (e) {
+                                                el.innerHTML = '<p style="color:#f66">콘텐츠를 불러오지 못했습니다: ' + (e.message || e) + '</p>';
+                                        }
+                                }
+                                // 모든 data-md 요소 일괄 처리
+                                document.querySelectorAll('[data-md]').forEach(loadMD);
                         </script>
 
         </body>
