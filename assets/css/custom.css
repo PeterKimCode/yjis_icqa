@@ -1,5 +1,6 @@
 :root {
-  --brand: #0ea5e9; /* 임시 브랜드 컬러, 추후 변경 */
+  --brand: #075985; /* 고대비 브랜드 컬러 */
+  --brand-dark: #0c4a6e;
 }
 
 body {
@@ -9,10 +10,22 @@ body {
 .button.primary {
   background: var(--brand);
   border-color: var(--brand);
+  color: #ffffff;
+}
+
+.button.primary:hover,
+.button.primary:focus {
+  background: var(--brand-dark);
+  border-color: var(--brand-dark);
 }
 
 a {
   color: var(--brand);
+}
+
+a:hover,
+a:focus {
+  color: var(--brand-dark);
 }
 
 #header nav {
@@ -53,6 +66,15 @@ body.is-scrolled #header.alt {
   background-color: rgba(15, 23, 42, 0.85);
 }
 
+#header nav a {
+  color: #f8fafc;
+}
+
+#header nav a:hover,
+#header nav a:focus {
+  color: #ffffff;
+}
+
 .contact-form .honeypot {
   display: none !important;
 }
@@ -72,6 +94,31 @@ body.is-scrolled #header.alt {
 
 .contact-form .form-result.error {
   border-left: 0.25rem solid #dc2626;
+}
+
+.footer-organization {
+  margin-bottom: 1.5rem;
+  color: #e2e8f0;
+}
+
+.footer-organization__name {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.footer-organization__address {
+  font-style: normal;
+  margin: 0 0 0.5rem;
+  line-height: 1.6;
+}
+
+.footer-organization__contact a {
+  color: #38bdf8;
+}
+
+.footer-organization__contact a:hover,
+.footer-organization__contact a:focus {
+  color: #f8fafc;
 }
 
 @media screen and (max-width: 980px) {
