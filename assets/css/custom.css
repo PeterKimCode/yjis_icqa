@@ -158,15 +158,24 @@ body.is-scrolled #header.alt {
   }
 }
 
-.visually-hidden {
-  position: absolute;
-  clip: rect(1px, 1px, 1px, 1px);
-  padding: 0;
-  border: 0;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
+/* inline form layout */
+.verify-inline .form-row{display:flex;gap:.75rem;align-items:stretch}
+.verify-inline .field{flex:1 1 0}
+.verify-inline .actions{margin:0;padding:0;display:flex;align-items:stretch}
+.verify-inline .actions .button{height:100%}
+
+/* 모바일에서는 스택 */
+@media (max-width: 768px){
+  .verify-inline .form-row{flex-direction:column}
+  .verify-inline .actions .button{height:auto}
 }
+
+/* 접근성 가이드용 숨김 라벨 */
+.visually-hidden{position:absolute!important;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}
+
+/* 에러 표시 */
+input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
+.error-text{color:#dc2626;font-size:.9rem;margin:.25rem 0 0}
 
 .modal {
   position: fixed;
