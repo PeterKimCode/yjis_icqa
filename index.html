@@ -434,20 +434,31 @@
   const dd  = document.querySelector('.nav-dropdown');
   if(!dd) return;
   const btn = dd.querySelector('.nav-dropdown__toggle');
-  const menu= dd.querySelector('.nav-dropdown__menu');
 
-  const toggle = (open)=>{
+  const setOpen = (open)=>{
     const isOpen = open ?? !dd.classList.contains('open');
     dd.classList.toggle('open', isOpen);
     btn.setAttribute('aria-expanded', String(isOpen));
   };
 
+  // 초기 상태 강제 닫기 (이전 세션에서 남은 클래스 제거)
+  dd.classList.remove('open');
+  btn.setAttribute('aria-expanded', 'false');
+
   // 터치/모바일: 탭으로 열고 닫기
-  btn.addEventListener('click', (e)=>{ e.preventDefault(); toggle(); });
+  btn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    setOpen();
+  });
 
   // 바깥 클릭/ESC 닫기
-  document.addEventListener('click', (e)=>{ if(!dd.contains(e.target)) toggle(false); });
-  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') toggle(false); });
+  document.addEventListener('click', (e)=>{
+    if(!dd.contains(e.target)) setOpen(false);
+  });
+
+  document.addEventListener('keydown', (e)=>{
+    if(e.key==='Escape') setOpen(false);
+  });
 })();
         </script>
 
