@@ -1,5 +1,4 @@
-# Stay in touch
-with the association<br>
+# Stay in touch with the association
 icqa.us@yahoo.com<br>
 +1-208-685-2541<br>
 yjisc@naver.com<br>
