@@ -443,7 +443,7 @@
     function renderCertificate(r){
       const safe = (v)=> v ?? '–';
       const year = r.year ?? (r.issueDate ? new Date(r.issueDate).getFullYear() : '');
-      const director = r.director ?? 'Director';
+      const director = r.director ?? 'Kim Nag Shin';
       const wm = r.watermark || './images/cert-watermark.png';
 
       return `
@@ -456,9 +456,9 @@
           <div class="certificate__header">
             <div class="certificate__brand">
               <div class="certificate__logo">
-                <!-- 로고 이미지 있으면 아래 주석 해제 -->
-                <!-- <img src="./images/icqa-mark.png" alt="ICQA mark" width="64" height="64"> -->
-                <span style="font-weight:800;color:var(--cert-primary)">ICQA</span>
+                <!-- 로고 이미지가 있으면 아래 주석 해제 -->
+                <!-- <img src="./images/icqa-wordmark.png" alt="ICQA wordmark"> -->
+                <span style="font: 900 12mm/1 'Playfair Display',serif; color: var(--cert-primary); letter-spacing:.02em;">ICQA</span>
               </div>
               <h3>INTERNATIONAL CIVIL QUALIFICATION ASSOCIATION</h3>
             </div>
