@@ -188,9 +188,9 @@
   background: rgba(147, 197, 253, .12);
 }
 
-/* 모달 내부 여백 */
+/* 모달 내부 여백: 상단은 인쇄/저장 버튼 노출 공간 */
 #result-body {
-  padding: .5rem;
+  padding: 3.25rem 0.75rem 0.75rem;
 }
 
 /* 인쇄 최적화 */
@@ -243,6 +243,11 @@
     align-items: center;
   }
 
+  /* 인쇄에서는 모달 상단 여백 제거 */
+  #result-modal #result-body {
+    padding: 0 !important;
+  }
+
   #result-modal .modal__close {
     display: none !important;
   }
@@ -252,11 +257,14 @@
   }
 
   #result-modal .certificate,
-  #result-modal .certificate * {
+  #result-modal .certificate *,
+  #result-modal .cert-canvas,
+  #result-modal .cert-canvas * {
     visibility: visible !important;
   }
 
-  #result-modal .certificate {
+  #result-modal .certificate,
+  #result-modal .cert-canvas {
     position: static;
     margin: 0 auto;
     box-shadow: none;
@@ -265,6 +273,8 @@
     transform: none;
   }
 
+  .modal__actions,
+  .cert-nav,
   .no-print {
     display: none !important;
   }
