@@ -48,102 +48,76 @@
   };
   const iqnOk = (v) => /^([a-z]{2,4}-?)?\d{3,}$/i.test(v); // 예시 규칙
 
-  function renderCertificate(r) {
-    const safe = (v) => v ?? '–';
+  function renderCertificateFixedA4(r){
+    const safe = (v)=> v ?? '–';
     const year = r.year ?? (r.issueDate ? new Date(r.issueDate).getFullYear() : '');
     const director = r.director ?? 'Kim Nag Shin';
     const wm = r.watermark || './images/cert-watermark.png';
 
     return `
-        <div class="certificate" id="certificate">
-          <div class="certificate__ribbon" aria-hidden="true"></div>
-          <div class="certificate__watermark" aria-hidden="true">
+      <div class="cert-stage">
+        <div class="cert-canvas" id="certificate">
+          <div class="cert-wm" aria-hidden="true">
             <img src="${wm}" alt="">
           </div>
 
-          <div class="certificate__header">
-            <div class="certificate__brand">
-              <div class="certificate__logo">
-                <!-- 로고 이미지가 있으면 아래 주석 해제 -->
-                <!-- <img src="./images/icqa-wordmark.png" alt="ICQA wordmark"> -->
-                <span style="font: 900 12mm/1 'Playfair Display',serif; color: var(--cert-primary); letter-spacing:.02em;">ICQA</span>
+          <div class="cert-header">
+            <div class="cert-brand">
+              <div class="logo">
+                <!-- <img src="./images/icqa-wordmark.png" alt="ICQA"> -->
+                <span style="font:900 12mm/1 'Playfair Display',serif; color:#0ea5e9">ICQA</span>
               </div>
               <h3>INTERNATIONAL CIVIL QUALIFICATION ASSOCIATION</h3>
             </div>
           </div>
 
-          <div class="certificate__body">
-            <div class="certificate__title">CERTIFICATE OF ACHIEVEMENT</div>
-            <div class="certificate__subtitle">THIS CERTIFICATE IS PROUDLY PRESENTED TO</div>
-            <div class="certificate__name">${safe(r.name)}</div>
+          <div class="cert-title">CERTIFICATE OF ACHIEVEMENT</div>
+          <div class="cert-sub">THIS CERTIFICATE IS PROUDLY PRESENTED TO</div>
+          <div class="cert-name">${safe(r.name)}</div>
 
-            <div class="certificate__grid">
-              <div class="certificate__field">
-                <div class="label">Student #</div>
-                <div class="value">${safe(r.studentId)}</div>
-              </div>
-              <div class="certificate__field">
-                <div class="label">Issue Date</div>
-                <div class="value">${safe(r.issueDate)}</div>
-              </div>
-              <div class="certificate__field">
-                <div class="label">Program</div>
-                <div class="value">${safe(r.program)}</div>
-              </div>
-              <div class="certificate__field">
-                <div class="label">Hours</div>
-                <div class="value">${safe(r.hours)}</div>
-              </div>
-              <div class="certificate__field">
-                <div class="label">Certificate Number</div>
-                <div class="value">${safe(r.certificateId)}</div>
-              </div>
-              <div class="certificate__field">
-                <div class="label">IQN</div>
-                <div class="value">${safe(r.iqn)}</div>
-              </div>
-            </div>
+          <div class="cert-grid">
+            <div class="cert-field"><div class="label">Student #</div><div class="value">${safe(r.studentId)}</div></div>
+            <div class="cert-field"><div class="label">Issue Date</div><div class="value">${safe(r.issueDate)}</div></div>
+            <div class="cert-field"><div class="label">Program</div><div class="value">${safe(r.program)}</div></div>
+            <div class="cert-field"><div class="label">Hours</div><div class="value">${safe(r.hours)}</div></div>
+            <div class="cert-field"><div class="label">Certificate Number</div><div class="value">${safe(r.certificateId)}</div></div>
+            <div class="cert-field"><div class="label">IQN</div><div class="value">${safe(r.iqn)}</div></div>
+          </div>
 
-            <div class="certificate__footer">
-              <div class="certificate__sign">
-                <div class="line"></div>
-                <div class="label">${director}</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8mm" class="no-print">
-                <button class="button ghost" id="btn-print">Print / Save PDF</button>
-                <div class="certificate__seal">${safe(year)}</div>
-              </div>
+          <div class="cert-footer">
+            <div class="cert-sign">
+              <div class="line"></div>
+              <div class="label">${safe(director)}</div>
             </div>
+            <div class="cert-seal">${safe(year)}</div>
           </div>
         </div>
-      `;
+
+        <!-- 수료증 외부 컨트롤 (별도 영역) -->
+        <div class="cert-controls no-print">
+          <button class="button ghost" id="btn-print">Print / Save PDF</button>
+        </div>
+      </div>
+    `;
   }
 
-  function showCertificates(results) {
+  function showCertificates(results){
     let index = 0;
-    function paint() {
+    function paint(){
       const html = `
-        ${renderCertificate(results[index])}
-        ${results.length > 1 ? `
-          <div style="display:flex;justify-content:space-between;gap:.5rem;margin-top:.75rem" class="no-print">
-            <button class="button" id="btn-prev" ${index === 0 ? 'disabled' : ''}>&larr; Prev</button>
-            <div style="opacity:.8"> ${index + 1} / ${results.length} </div>
-            <button class="button" id="btn-next" ${index === results.length - 1 ? 'disabled' : ''}>Next &rarr;</button>
-          </div>` : ''
-        }
+        ${renderCertificateFixedA4(results[index])}
+        ${results.length>1 ? `
+          <div style="display:flex;justify-content:space-between;gap:.5rem;margin-top:.5rem" class="no-print">
+            <button class="button" id="btn-prev" ${index===0?'disabled':''}>&larr; Prev</button>
+            <div style="opacity:.8">${index+1} / ${results.length}</div>
+            <button class="button" id="btn-next" ${index===results.length-1?'disabled':''}>Next &rarr;</button>
+          </div>` : '' }
       `;
       openModal(html);
 
-      const btnPrint = document.getElementById('btn-print');
-      btnPrint?.addEventListener('click', () => window.print());
-      document.getElementById('btn-prev')?.addEventListener('click', () => {
-        index = Math.max(0, index - 1);
-        paint();
-      });
-      document.getElementById('btn-next')?.addEventListener('click', () => {
-        index = Math.min(results.length - 1, index + 1);
-        paint();
-      });
+      document.getElementById('btn-print')?.addEventListener('click', ()=> window.print());
+      document.getElementById('btn-prev')?.addEventListener('click', ()=>{ index=Math.max(0,index-1); paint(); });
+      document.getElementById('btn-next')?.addEventListener('click', ()=>{ index=Math.min(results.length-1,index+1); paint(); });
     }
     paint();
   }
