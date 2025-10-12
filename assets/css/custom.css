@@ -127,7 +127,7 @@ body.is-scrolled #header.alt {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.45rem 1.05rem;
+  padding: 0.225rem 1.05rem;
   color: #e5e7eb;
   text-decoration: none;
   white-space: nowrap;
