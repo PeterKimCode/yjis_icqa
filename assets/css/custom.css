@@ -1,5 +1,6 @@
+/* 대비 개선 및 브랜드 컬러 */
 :root {
-  --brand: #075985; /* 고대비 브랜드 컬러 */
+  --brand: #0ea5e9;
   --brand-dark: #0c4a6e;
 }
 
@@ -57,13 +58,19 @@ a:focus {
 }
 
 body.is-scrolled #header {
-  background-color: rgba(15, 23, 42, 0.85);
+  position: sticky;
+  top: 0;
+  background: rgba(17, 24, 39, 0.6);
   box-shadow: 0 0.25rem 0.75rem rgba(15, 23, 42, 0.25);
-  backdrop-filter: blur(6px);
+  backdrop-filter: saturate(1.2) blur(6px);
 }
 
 body.is-scrolled #header.alt {
-  background-color: rgba(15, 23, 42, 0.85);
+  background: rgba(17, 24, 39, 0.6);
+}
+
+#header a {
+  text-decoration: none;
 }
 
 #header nav a {
@@ -86,6 +93,14 @@ body.is-scrolled #header.alt {
   background: rgba(15, 23, 42, 0.05);
   color: #0f172a;
   font-weight: 500;
+}
+
+.form-result.success {
+  color: #16a34a;
+}
+
+.form-result.error {
+  color: #dc2626;
 }
 
 .contact-form .form-result.success {
@@ -119,6 +134,12 @@ body.is-scrolled #header.alt {
 .footer-organization__contact a:hover,
 .footer-organization__contact a:focus {
   color: #f8fafc;
+}
+
+/* 섹션별 미세 튜닝(필요시) */
+#management.wrapper.special .button {
+  background: #064e3b;
+  border-color: #064e3b;
 }
 
 @media screen and (max-width: 980px) {

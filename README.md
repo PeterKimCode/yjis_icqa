@@ -18,3 +18,9 @@
 
 ## 배포 확인
 - https://<username>.github.io/<repo>/
+
+## 콘텐츠 편집
+- 텍스트는 `/content/*.md`에 Markdown으로 작성합니다.
+- 이미지 업로드는 `/images`에 추가하고 Markdown에서 `![](./images/파일명)` 형태로 불러옵니다.
+- GitHub Pages는 Settings → Pages → main / (root) 설정을 사용합니다.
+- Open Graph 이미지와 URL은 절대경로를 사용해야 합니다.
