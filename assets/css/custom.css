@@ -306,6 +306,23 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
   line-height: 1;
 }
 
+/* 모달 상단 우측에 배치되는 인쇄/저장 액션 버튼 */
+.modal__actions {
+  position: absolute;
+  top: 1rem;
+  right: 3.5rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: calc(100% - 4.5rem);
+}
+
+.modal__actions .button {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.9rem;
+}
+
 .result-table {
   width: 100%;
   border-collapse: collapse;
@@ -630,8 +647,8 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
 .button.ghost{ background:transparent; border:1px solid #93c5fd; color:#1d4ed8 }
 .button.ghost:hover{ background:rgba(147,197,253,.12) }
 
-/* 모달 내부 여백 */
-#result-body{ padding: .5rem }
+/* 모달 내부 여백: 상단 공간은 액션 버튼을 위해 확보 */
+#result-body{ padding: 3.25rem 0.75rem 0.75rem }
 
 /* 인쇄 최적화 */
 @page { size: A4 portrait; margin: 12mm; }
@@ -815,7 +832,7 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
 }
 
 /* 모달 내부 스크롤은 모달이 처리, 수료증은 고정 크기 */
-#result-body{ padding: 0.75rem; }
+#result-body{ padding: 3.25rem 0.75rem 0.75rem; }
 .cert-stage{
   display:flex; flex-direction:column; align-items:center; gap:12px;
 }
@@ -887,11 +904,23 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
   object-fit:contain;
 }
 
-/* 외부 컨트롤 바(수료증 밖) */
-.cert-controls{
-  width: var(--a4-w);
-  display:flex; justify-content:flex-end; gap:8px;
+/* 다중 검색 결과 시 하단 네비게이션 */
+.cert-nav{
+  margin-top: 0.75rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:0.5rem;
+  width:100%;
+  max-width: var(--a4-w);
 }
+
+.cert-nav__count{
+  font-weight:600;
+  opacity:.75;
+}
+
+/* 공용 고스트 버튼: 인쇄/저장 액션에 사용 */
 .button.ghost{ background:transparent; border:1px solid #93c5fd; color:#1d4ed8 }
 .button.ghost:hover{ background:rgba(147,197,253,.12) }
 
@@ -948,6 +977,11 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
     align-items:center;
   }
 
+  /* 인쇄 시 상단 액션 공간을 제거하여 A4에 맞춤 */
+  #result-modal #result-body{
+    padding:0 !important;
+  }
+
   #result-modal .modal__close{
     display:none !important;
   }
@@ -962,7 +996,9 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
   }
 
   #result-modal .cert-canvas,
-  #result-modal .cert-canvas *{
+  #result-modal .cert-canvas *,
+  #result-modal .certificate,
+  #result-modal .certificate *{
     visibility:visible !important;
   }
 
@@ -975,7 +1011,8 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
     transform:none;
   }
 
-  .cert-controls,
+  .modal__actions,
+  .cert-nav,
   .no-print{
     display:none !important;
   }
