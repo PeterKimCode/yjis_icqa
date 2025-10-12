@@ -377,3 +377,143 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
 /* welfare(라이트) 섹션은 진한 줄로 대체 */
 #welfare .major:after{ background:#111827; }
 
+/* =========================
+   ICQA Section Palette (WCAG-aware)
+   ========================= */
+:root{
+  /* Provided 5 colors */
+  --c-deep-olive:   #364011; /* Counseling */
+  --c-olive-lime:   #97A626; /* Management */
+  --c-mid-olive:    #707320; /* Specialization */
+  --c-hi-yellow:    #F2E529; /* Research */
+  --c-deep-brown:   #59210C; /* Welfare */
+
+  /* Extended 3 colors */
+  --c-dark-olive:   #40350F; /* Administration */
+  --c-soft-lime:    #B7C444; /* Education */
+  --c-bronze-gold:  #A67610; /* Foreign Language */
+
+  /* Text/utility */
+  --txt-light: #F5F7FA;     /* near-white */
+  --txt-dark:  #111111;     /* near-black */
+  --brand:     #0ea5e9;     /* link/primary accent */
+}
+
+/* 전역: .wrapper가 모든 섹션 배경을 덮지 않도록 초기화 */
+.wrapper{ background: transparent; }
+
+/* 공통 텍스트/링크/버튼(밝은 배경, 어두운 텍스트) */
+.section-light { color: var(--txt-dark); }
+.section-light a{ color: var(--brand); }
+.section-light .button.primary{ background: var(--brand); border-color: var(--brand); color:#fff; }
+
+/* 공통 텍스트/링크/버튼(어두운 배경, 밝은 텍스트) */
+.section-dark  { color: var(--txt-light); }
+.section-dark a{ color: #93c5fd; } /* 밝은 블루톤 링크 */
+.section-dark .button.primary{ background:#38bdf8; border-color:#38bdf8; color:#0b1220; }
+
+/* ===== 섹션별 배경/텍스트 적용 (ID 타겟팅) ===== */
+
+/* Counseling – Deep Olive (dark) */
+#counseling.wrapper{
+  background: var(--c-deep-olive);
+}
+#counseling.wrapper .inner{ color: var(--txt-light); }
+
+/* Management – Olive Lime (light) */
+#management.wrapper{
+  background: var(--c-olive-lime);
+}
+#management.wrapper .inner{ color: var(--txt-dark); }
+
+/* Specialization – Mid Olive (dark) */
+#specialization.wrapper{
+  background: var(--c-mid-olive);
+}
+#specialization.wrapper .inner{ color: var(--txt-light); }
+
+/* Research – Highlight Yellow (light) */
+#research.wrapper{
+  background: var(--c-hi-yellow);
+}
+#research.wrapper .inner{ color: var(--txt-dark); }
+
+/* Welfare – Deep Brown (dark) */
+#welfare.wrapper{
+  background: var(--c-deep-brown);
+}
+#welfare.wrapper .inner{ color: var(--txt-light); }
+
+/* Administration – Dark Olive Shadow (dark) */
+#administration.wrapper{
+  background: var(--c-dark-olive);
+}
+#administration.wrapper .inner{ color: var(--txt-light); }
+
+/* Education – Soft Lime (light) */
+#education.wrapper{
+  background: var(--c-soft-lime);
+}
+#education.wrapper .inner{ color: var(--txt-dark); }
+
+/* Foreign Language – Bronze/Gold (dark) */
+#foreign-language.wrapper{
+  background: var(--c-bronze-gold);
+}
+#foreign-language.wrapper .inner{ color: var(--txt-light); }
+
+/* 헤딩/본문 정렬 및 폭(모든 섹션에 동일 적용) */
+#counseling .inner,
+#management .inner,
+#specialization .inner,
+#research .inner,
+#welfare .inner,
+#administration .inner,
+#education .inner,
+#foreign-language .inner{
+  text-align: left; max-width: 60rem; margin: 0 auto;
+}
+
+/* 스펙트럴의 섹션 구분선 색상 보정(섹션 톤에 맞춤) */
+.wrapper .major:after{ background: rgba(255,255,255,.45); }
+#management .major:after,
+#research .major:after,
+#education .major:after{ background: rgba(17,17,17,.6); }
+
+/* 링크/버튼 대비 보정(라이트 섹션) */
+#management a,
+#research a,
+#education a { color: var(--brand); }
+#management .button.primary,
+#research .button.primary,
+#education .button.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+/* 링크/버튼 대비 보정(다크 섹션) */
+#counseling a,
+#specialization a,
+#welfare a,
+#administration a,
+#foreign-language a { color:#93c5fd; }
+#counseling .button.primary,
+#specialization .button.primary,
+#welfare .button.primary,
+#administration .button.primary,
+#foreign-language .button.primary { background:#38bdf8; border-color:#38bdf8; color:#0b1220; }
+
+/* 반응형 여백 미세 튜닝 */
+@media (max-width: 768px){
+  #counseling .inner,
+  #management .inner,
+  #specialization .inner,
+  #research .inner,
+  #welfare .inner,
+  #administration .inner,
+  #education .inner,
+  #foreign-language .inner{
+    padding-inline: .75rem;
+  }
+}
+
+/* =========================
+   END ICQA Section Palette
+   ========================= */
