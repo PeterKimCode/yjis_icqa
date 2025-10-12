@@ -1,1 +1,2 @@
-# 제목(임시)
+# Foreign language part FO -08
+Those who have passed the private qualification examinations in foreign languages such as translators and interpreters can be replaced with international private qualifications through basic tests and seminars through the International Civil Qualification Association. You can check your eligibility all over the world and receive the same qualifications and benefits in every country of the world.
