@@ -517,3 +517,17 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
 /* =========================
    END ICQA Section Palette
    ========================= */
+
+/* ===== Alternating split layout ===== */
+.section-split { display:grid; grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); gap:2rem; align-items:center }
+.section-split .image { border-radius:12px; overflow:hidden }
+.section-split .image img { display:block; width:100%; height:100%; object-fit:cover }
+.section-split .content { min-width:0 }
+.section-split.reverse .image { order:2 }
+.section-split.reverse .content { order:1 }
+@media (max-width: 980px){
+  .section-split { grid-template-columns:1fr; gap:1.25rem }
+  .section-split.reverse .image,
+  .section-split.reverse .content { order:initial }
+}
+/* ===== END ===== */
