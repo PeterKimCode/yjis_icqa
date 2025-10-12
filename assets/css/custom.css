@@ -531,3 +531,61 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
   .section-split.reverse .content { order:initial }
 }
 /* ===== END ===== */
+
+/* ===== Certificate Card ===== */
+.certificate{
+  --primary:#0ea5e9;
+  --title:#1f2937;
+  --text:#111827;
+  --paper:#fff;
+  width:min(900px, 100%);
+  margin:0 auto; background:var(--paper);
+  color:var(--text); border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+  overflow:hidden; position:relative;
+}
+.certificate__header{
+  background:linear-gradient(135deg,#0b1726, #122131 60%, #0ea5e9 100%);
+  color:#e6f6ff; padding:1.25rem 1.5rem; display:flex; align-items:center; gap:1rem;
+}
+.certificate__header .logo{
+  width:56px; height:56px; border-radius:50%; overflow:hidden; flex:0 0 56px; background:#fff;
+  display:flex; align-items:center; justify-content:center;
+}
+.certificate__header h3{ margin:0; font-weight:700; letter-spacing:.05em }
+.certificate__body{ padding:1.75rem 1.5rem 1.5rem }
+.certificate__title{
+  font-size:2.25rem; font-weight:800; letter-spacing:.06em; color:var(--title);
+  border-bottom:3px solid var(--primary); padding-bottom:.5rem; margin:1rem 0 1.25rem
+}
+.certificate__row{ display:flex; gap:1.25rem; flex-wrap:wrap; margin:.5rem 0 }
+.certificate__field{ flex:1 1 260px }
+.certificate__label{ font-size:.9rem; color:#6b7280; letter-spacing:.08em }
+.certificate__value{ font-size:1.05rem; font-weight:600; margin-top:.25rem }
+.certificate__name{ font-size:2rem; font-weight:800; margin:1rem 0 .75rem }
+.certificate__seal{
+  position:absolute; right:24px; bottom:24px;
+  width:120px; height:120px; border-radius:50%;
+  background: radial-gradient( circle at 30% 30%, #fde68a, #f59e0b 60%, #b45309 100%);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,.25), 0 4px 12px rgba(0,0,0,.2);
+  display:flex; align-items:center; justify-content:center; color:#312e81; font-weight:800; font-size:1.25rem;
+  border:4px solid #fff;
+}
+.certificate__footer{ margin-top:2rem; display:flex; justify-content:space-between; align-items:center; gap:1rem }
+.certificate__sign{ display:flex; flex-direction:column; gap:.35rem }
+.certificate__sign .line{ width:240px; height:3px; background:#0ea5e9 }
+.certificate__actions{ display:flex; gap:.5rem; justify-content:flex-end }
+
+.button.ghost{ background:transparent; border:1px solid #93c5fd; color:#93c5fd }
+.button.ghost:hover{ background:rgba(147,197,253,.12) }
+
+/* Modal content spacing tweak */
+#result-body{ padding: .25rem }
+
+/* ===== Print styles (print only certificate) ===== */
+@media print{
+  body *{ visibility:hidden !important }
+  #result-modal .certificate, #result-modal .certificate *{ visibility:visible !important }
+  #result-modal .certificate{ position:absolute; inset:0; margin:auto; box-shadow:none; width:100%; height:auto }
+  #result-modal .no-print{ display:none !important }
+}
