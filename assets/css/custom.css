@@ -977,15 +977,18 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
 
 /* 필드 영역: 2열 고정 */
 .cert-grid{ position:absolute; left:18mm; right:18mm; top:108mm;
-  display:grid; grid-template-columns: 1fr 1fr; column-gap:12mm; row-gap:8mm;
+  display:grid; grid-template-columns: 1fr 1fr; column-gap:12mm; row-gap:10mm;
 }
-.cert-field .label{ font: 600 3.4mm/1.1 Inter, system-ui, sans-serif; color:#6b7280; letter-spacing:.06em }
-.cert-field .value{ margin-top:1.5mm; font: 700 4mm/1.2 Inter, system-ui, sans-serif; }
+.cert-field .label{ font: 600 6.8mm/1.1 Inter, system-ui, sans-serif; color:#6b7280; letter-spacing:.06em }
+.cert-field .value{ margin-top:2.5mm; font: 700 8mm/1.2 Inter, system-ui, sans-serif; }
 
 /* 서명/봉인 영역 고정 */
 .cert-footer{ position:absolute; left:18mm; right:25mm; bottom:22mm; display:flex; justify-content:space-between; align-items:flex-end }
+.cert-sign{ display:flex; flex-direction:column; align-items:flex-start; gap:3mm; }
+.cert-sign .image{ width:60mm; }
+.cert-sign .image img{ width:100%; height:auto; display:block; object-fit:contain; }
 .cert-sign .line{ width:60mm; height:.8mm; background:var(--cert-primary) }
-.cert-sign .label{ margin-top:2mm; font: 600 3.4mm/1 Inter, system-ui, sans-serif; color:#6b7280 }
+.cert-sign .label{ margin-top:1mm; font: 600 6.8mm/1 Inter, system-ui, sans-serif; color:#6b7280 }
 
 .cert-seal{
   width: 26mm; height: 26mm; border-radius:50%; border:1.2mm solid #fff;

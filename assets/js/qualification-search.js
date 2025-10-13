@@ -108,6 +108,7 @@
     const safe = (v)=> v ?? '–';
     const year = r.year ?? (r.issueDate ? new Date(r.issueDate).getFullYear() : '');
     const director = r.director ?? 'Kim Nag Shin';
+    const signature = r.signature || './images/cert-signature.svg';
     const wm = r.watermark || './images/cert-watermark.png';
 
     return `
@@ -142,6 +143,9 @@
 
           <div class="cert-footer">
             <div class="cert-sign">
+              <div class="image" aria-hidden="true">
+                <img src="${signature}" alt="">
+              </div>
               <div class="line"></div>
               <div class="label">${safe(director)}</div>
             </div>
