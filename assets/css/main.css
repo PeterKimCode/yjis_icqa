@@ -2816,10 +2816,14 @@ input, select, textarea {
 			padding: 0;
 		}
 
-		.wrapper.style1 {
-			background-color: #21b2a6;
-			color: #c8ece9;
-		}
+.wrapper.style1 {
+       background-color: #21b2a6;
+       color: #c8ece9;
+}
+
+#verify.wrapper.style1 {
+       background-color: #1a659e;
+}
 
 			.wrapper.style1 strong, .wrapper.style1 b {
 				color: #ffffff;
