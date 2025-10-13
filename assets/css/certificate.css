@@ -105,7 +105,7 @@
   font-weight: 900;
   letter-spacing: .02em;
   color: var(--cert-title);
-  border-bottom: 2.2mm solid var(--cert-primary);
+  border-bottom: 4mm solid var(--cert-primary);
   padding-bottom: 4mm;
   margin: 10mm 0 6mm;
 }
