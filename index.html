@@ -41,28 +41,50 @@
                                <!-- Header -->
                                        <header id="header" class="alt">
                                                <h1><a href="index.html">ICQA</a></h1>
-                                              <nav id="nav">
-                                                     <ul>
-                                                             <li><a class="scrolly" href="#about">About</a></li>
-                                                            <li class="nav-dropdown">
-                                                                    <a href="#qualification-info" class="nav-dropdown__toggle" aria-haspopup="true" aria-expanded="false">
-                                                                            Qualification Information
-                                                                    </a>
-                                                                    <ul class="nav-dropdown__menu" role="menu">
-                                                                            <li><a class="scrolly" href="#counseling" role="menuitem">Counseling</a></li>
-                                                                            <li><a class="scrolly" href="#management" role="menuitem">Management</a></li>
-                                                                            <li><a class="scrolly" href="#specialization" role="menuitem">Specialization</a></li>
-                                                                            <li><a class="scrolly" href="#research" role="menuitem">Research</a></li>
-                                                                            <li><a class="scrolly" href="#welfare" role="menuitem">Welfare</a></li>
-                                                                            <li><a class="scrolly" href="#administration" role="menuitem">Administration</a></li>
-                                                                            <li><a class="scrolly" href="#education" role="menuitem">Education</a></li>
-                                                                            <li><a class="scrolly" href="#foreign-language" role="menuitem">Foreign Language</a></li>
-                                                                    </ul>
-                                                            </li>
+                                               <nav id="nav" aria-label="Primary navigation">
+                                                       <a href="#menu" class="menuToggle" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
+                                                               <span>Menu</span>
+                                                       </a>
+                                                       <ul>
+                                                               <li><a class="scrolly" href="#about">About</a></li>
+                                                               <li class="nav-dropdown">
+                                                                       <a href="#qualification-info" class="nav-dropdown__toggle" aria-haspopup="true" aria-expanded="false">
+                                                                               Qualification Information
+                                                                       </a>
+                                                                       <ul class="nav-dropdown__menu" role="menu">
+                                                                               <li><a class="scrolly" href="#counseling" role="menuitem">Counseling</a></li>
+                                                                               <li><a class="scrolly" href="#management" role="menuitem">Management</a></li>
+                                                                               <li><a class="scrolly" href="#specialization" role="menuitem">Specialization</a></li>
+                                                                               <li><a class="scrolly" href="#research" role="menuitem">Research</a></li>
+                                                                               <li><a class="scrolly" href="#welfare" role="menuitem">Welfare</a></li>
+                                                                               <li><a class="scrolly" href="#administration" role="menuitem">Administration</a></li>
+                                                                               <li><a class="scrolly" href="#education" role="menuitem">Education</a></li>
+                                                                               <li><a class="scrolly" href="#foreign-language" role="menuitem">Foreign Language</a></li>
+                                                                       </ul>
+                                                               </li>
 
-                                                             <li><a class="scrolly" href="#contact">Contact</a></li>
-                                                     </ul>
-                                              </nav>
+                                                               <li><a class="scrolly" href="#contact">Contact</a></li>
+                                                       </ul>
+                                               </nav>
+                                               <div id="menu" role="navigation" aria-label="Mobile navigation" aria-hidden="true">
+                                                       <ul>
+                                                               <li><a class="scrolly" href="#about">About</a></li>
+                                                               <li>
+                                                                       <a class="menu__section-heading scrolly" href="#qualification-info">Qualification Information</a>
+                                                                       <ul>
+                                                                               <li><a class="scrolly" href="#counseling">Counseling</a></li>
+                                                                               <li><a class="scrolly" href="#management">Management</a></li>
+                                                                               <li><a class="scrolly" href="#specialization">Specialization</a></li>
+                                                                               <li><a class="scrolly" href="#research">Research</a></li>
+                                                                               <li><a class="scrolly" href="#welfare">Welfare</a></li>
+                                                                               <li><a class="scrolly" href="#administration">Administration</a></li>
+                                                                               <li><a class="scrolly" href="#education">Education</a></li>
+                                                                               <li><a class="scrolly" href="#foreign-language">Foreign Language</a></li>
+                                                                       </ul>
+                                                               </li>
+                                                               <li><a class="scrolly" href="#contact">Contact</a></li>
+                                                       </ul>
+                                               </div>
                                        </header>
 
 				<!-- Banner -->
@@ -348,6 +370,25 @@
 
                                         toggleScrolledClass();
                                         window.addEventListener('scroll', toggleScrolledClass, { passive: true });
+                                })();
+                                (function() {
+                                        var body = document.body;
+                                        var toggle = document.querySelector('#nav .menuToggle');
+                                        var menu = document.getElementById('menu');
+                                        if (!toggle) return;
+
+                                        var updateExpanded = function() {
+                                                var expanded = body.classList.contains('is-menu-visible');
+                                                toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+                                                if (menu) {
+                                                        menu.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+                                                }
+                                        };
+
+                                        updateExpanded();
+
+                                        var observer = new MutationObserver(updateExpanded);
+                                        observer.observe(body, { attributes: true, attributeFilter: ['class'] });
                                 })();
                                 (function() {
                                         var form = document.getElementById('contact-form');

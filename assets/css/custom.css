@@ -34,6 +34,7 @@ a:focus {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 1rem;
 }
 
 #header nav ul {
@@ -49,6 +50,48 @@ a:focus {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+#header nav .menuToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(248, 250, 252, 0.35);
+  background: rgba(15, 23, 42, 0.25);
+  font-size: 0.75rem;
+  line-height: 1;
+  color: #f8fafc;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+#header nav .menuToggle span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+#header nav .menuToggle::after {
+  content: "";
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 0.1rem;
+  background-color: currentColor;
+  mask: url('../images/bars.svg') center / contain no-repeat;
+  -webkit-mask: url('../images/bars.svg') center / contain no-repeat;
+  background-image: url('../images/bars.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#header nav .menuToggle:hover,
+#header nav .menuToggle:focus {
+  background: rgba(15, 23, 42, 0.45);
+  border-color: rgba(248, 250, 252, 0.55);
+  color: #ffffff;
 }
 
 #header {
@@ -81,6 +124,12 @@ body.is-scrolled #header.alt {
 #header nav a:hover,
 #header nav a:focus {
   color: #ffffff;
+}
+
+@media screen and (min-width: 981px) {
+  #header nav .menuToggle {
+    display: none;
+  }
 }
 
 /* Navigation dropdown */
@@ -233,9 +282,11 @@ body.is-scrolled #header.alt {
   }
 
   #header nav ul {
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 1rem;
+    display: none;
+  }
+
+  #header nav .menuToggle {
+    display: inline-flex;
   }
 }
 
@@ -250,6 +301,49 @@ body.is-scrolled #header.alt {
     box-shadow: 0 14px 24px rgba(15, 23, 42, 0.28);
     backdrop-filter: none;
   }
+}
+
+#menu {
+  font-weight: 600;
+}
+
+#menu ul ul {
+  margin: 0.75rem 0 0 0;
+  padding: 0 0 0 1rem;
+}
+
+#menu ul ul li {
+  border-top: 0 !important;
+  margin: 0;
+  padding: 0.35rem 0 0 0;
+}
+
+#menu ul ul a {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  padding-left: 0;
+}
+
+#menu .menu__section-heading {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+#banner .logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#banner .logo img {
+  width: 100%;
+  max-width: clamp(140px, 40vw, 260px);
+  height: auto;
 }
 
 /* inline form layout */
