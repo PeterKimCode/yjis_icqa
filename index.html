@@ -26,43 +26,7 @@
                 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
                 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="assets/css/main.css" />
-                <!-- Critical CSS: keep only tokens + header/hero essentials inline for first paint -->
-                <style>
-                        /* Critical path styles (header + hero). Full modules load asynchronously below. */
-                        :root {
-                                --color-brand: #0ea5e9;
-                                --color-brand-dark: #0c4a6e;
-                                --color-brand-contrast: #ffffff;
-                                --font-sans: "Pretendard", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-                        }
-
-                        body {
-                                font-family: var(--font-sans, "Pretendard", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif);
-                        }
-
-                        .button.primary {
-                                background: var(--color-brand, #0ea5e9);
-                                border-color: var(--color-brand, #0ea5e9);
-                                color: var(--color-brand-contrast, #ffffff);
-                        }
-
-                        #header {
-                                position: sticky;
-                                top: 0;
-                                z-index: 1000;
-                        }
-                </style>
-                <link rel="stylesheet" href="assets/styles/tokens.css" />
-                <link rel="stylesheet" href="assets/styles/base/base.css" />
-                <link rel="stylesheet" href="assets/styles/components/header.css" />
-                <link rel="stylesheet" href="assets/styles/components/nav-dropdown.css" />
-                <link rel="stylesheet" href="assets/styles/components/menu-overlay.css" />
-                <link rel="stylesheet" href="assets/styles/components/forms/contact-form.css" />
-                <link rel="stylesheet" href="assets/styles/components/forms/verify-form.css" />
-                <link rel="stylesheet" href="assets/styles/components/footer.css" />
-                <link rel="stylesheet" href="assets/styles/components/split-sections.css" />
-                <link rel="stylesheet" href="assets/styles/pages/home/banner.css" />
-                <link rel="stylesheet" href="assets/styles/pages/home/sections.css" />
+                <link rel="stylesheet" href="assets/css/custom.css" />
                 <link rel="stylesheet" href="assets/css/certificate.css" />
                 <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
                 <!-- Markdown 파서 + XSS 방지 -->
