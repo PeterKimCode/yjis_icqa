@@ -1,6 +1,7 @@
 /* ==========================================
    ICQA Certificate Layout (A4, refined)
    ========================================== */
+/* 인증서 색상 팔레트 정의 */
 :root {
   --cert-primary: #0ea5e9;
   --cert-title: #1f2937;
@@ -9,7 +10,7 @@
   --cert-muted: #6b7280;
 }
 
-/* A4 크기: 화면표시는 794×1123px(96dpi 근사), 인쇄는 @page로 진짜 A4 맞춤 */
+/* A4 크기 전체 레이아웃 및 기본 카드 스타일 */
 .certificate {
   font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   width: min(794px, 100%);
@@ -22,7 +23,7 @@
   overflow: hidden;
 }
 
-/* 워터마크 (배경 50%) */
+/* 중앙 워터마크 배경 영역 */
 .certificate__watermark {
   position: absolute;
   inset: 0;
@@ -35,6 +36,7 @@
   mix-blend-mode: multiply;
 }
 
+/* 워터마크 이미지 크기 및 톤 보정 */
 .certificate__watermark img {
   max-width: 80%;
   height: auto;
@@ -42,7 +44,7 @@
   filter: saturate(.9) contrast(.95);
 }
 
-/* 헤더: 곡선 보더 + 그라디언트 */
+/* 우측 상단 원형 리본 장식 */
 .certificate__ribbon {
   position: absolute;
   right: -40px;
@@ -54,17 +56,20 @@
   opacity: .85;
 }
 
+/* 상단 헤더 컨테이너 여백 */
 .certificate__header {
   position: relative;
   padding: 28mm 18mm 8mm;
 }
 
+/* 로고와 브랜드명을 수평 정렬 */
 .certificate__brand {
   display: flex;
   align-items: center;
   gap: 10mm;
 }
 
+/* 로고 영역 기본값 초기화 */
 .certificate__logo {
   width: auto;
   height: auto;
@@ -78,12 +83,14 @@
   justify-content: center;
 }
 
+/* 로고 이미지 최대 높이 제한 */
 .certificate__logo img {
   display: block;
   max-height: 20mm;
   width: auto;
 }
 
+/* 브랜드 타이틀 텍스트 */
 .certificate__brand h3 {
   margin: 0;
   letter-spacing: .06em;
@@ -94,11 +101,13 @@
   font-family: 'Inter', system-ui, sans-serif;
 }
 
+/* 본문 컨텐츠 여백 */
 .certificate__body {
   position: relative;
   padding: 8mm 18mm 16mm;
 }
 
+/* 메인 인증서 제목 */
 .certificate__title {
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   font-size: 13mm;
@@ -110,6 +119,7 @@
   margin: 10mm 0 6mm;
 }
 
+/* 서브타이틀 안내 문구 */
 .certificate__subtitle {
   color: var(--cert-muted);
   letter-spacing: .08em;
@@ -117,6 +127,7 @@
   font-size: 3.6mm;
 }
 
+/* 수상자 이름 강조 */
 .certificate__name {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 11mm;
@@ -124,6 +135,7 @@
   margin: 4mm 0 2mm;
 }
 
+/* 상세 정보 2열 그리드 */
 .certificate__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -131,18 +143,21 @@
   margin-top: 4mm;
 }
 
+/* 필드 라벨 스타일 */
 .certificate__field .label {
   color: var(--cert-muted);
   font-size: 3.5mm;
   letter-spacing: .06em;
 }
 
+/* 필드 값 강조 */
 .certificate__field .value {
   font-weight: 700;
   font-size: 4mm;
   margin-top: 1.5mm;
 }
 
+/* 서명과 봉인을 정렬 */
 .certificate__footer {
   margin-top: 14mm;
   display: flex;
@@ -151,18 +166,21 @@
   gap: 8mm;
 }
 
+/* 서명 라인 스타일 */
 .certificate__sign .line {
   width: 60mm;
   height: .8mm;
   background: var(--cert-primary);
 }
 
+/* 서명 라벨 */
 .certificate__sign .label {
   margin-top: 2mm;
   color: var(--cert-muted);
   font-size: 3.5mm;
 }
 
+/* 하단 봉인 배지 */
 .certificate__seal {
   width: 26mm;
   height: 26mm;
@@ -178,27 +196,30 @@
   font-size: 6mm;
 }
 
+/* 투명 고스트 버튼 */
 .button.ghost {
   background: transparent;
   border: 1px solid #93c5fd;
   color: #1d4ed8;
 }
 
+/* 고스트 버튼 호버 효과 */
 .button.ghost:hover {
   background: rgba(147, 197, 253, .12);
 }
 
-/* 모달 내부 여백: 상단은 인쇄/저장 버튼 노출 공간 */
+/* 결과 모달 내부 여백 조정 */
 #result-body {
   padding: 3.25rem 0.75rem 0.75rem;
 }
 
-/* 인쇄 최적화 */
+/* 인쇄 전용 페이지 설정 */
 @page {
   size: A4 portrait;
   margin: 12mm;
 }
 
+/* 인쇄 시 모달만 노출 */
 @media print {
   html,
   body {
