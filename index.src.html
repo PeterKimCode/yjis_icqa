@@ -95,7 +95,7 @@
                                                                <p>문의 사항이 있다면 아래 양식을 작성해 주세요. 최대한 빠르게 답변드리겠습니다.</p>
                                                        </header>
 
-                                                       <form id="contact-form" class="contact-form" action="https://formspree.io/f/TODO" method="POST">
+                                                       <form id="contact-form" class="contact-form" action="mailto:yjisc@naver.com" method="POST">
                                                                <div class="fields">
                                                                        <div class="field">
                                                                                <label for="contact-name">Name</label>
@@ -165,53 +165,60 @@
                                         if (!form) return;
 
                                         var messageContainer = document.getElementById('contact-form-message');
-                                        var submittingText = '메시지를 전송하는 중입니다...';
-                                        var successText = '메시지가 성공적으로 전송되었습니다. 빠른 시일 내에 연락드리겠습니다.';
-                                        var errorText = '메시지 전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+                                        var preparingText = '메일을 준비하는 중입니다...';
+                                        var successText = '기본 메일 프로그램이 열리면 내용을 확인한 뒤 보내 주세요.';
+                                        var errorText = '메일 프로그램을 열 수 없습니다. 복사하여 직접 보내 주세요: yjisc@naver.com';
 
                                         form.addEventListener('submit', function(event) {
                                                 event.preventDefault();
 
+                                                var formData = new FormData(form);
+                                                var name = (formData.get('name') || '').trim();
+                                                var email = (formData.get('email') || '').trim();
+                                                var message = (formData.get('message') || '').trim();
+
                                                 if (messageContainer) {
-                                                        messageContainer.textContent = submittingText;
+                                                        messageContainer.textContent = preparingText;
                                                         messageContainer.classList.remove('success', 'error');
                                                         messageContainer.hidden = false;
                                                 }
 
-                                                var formData = new FormData(form);
+                                                var subject = '[ICQA] 새로운 문의가 도착했습니다';
+                                                if (name) {
+                                                        subject += ' - ' + name;
+                                                }
 
-                                                fetch(form.getAttribute('action'), {
-                                                        method: 'POST',
-                                                        headers: { 'Accept': 'application/json' },
-                                                        body: formData
-                                                }).then(function(response) {
-                                                        if (response.ok) {
-                                                                form.reset();
+                                                var bodyLines = [
+                                                        'Name: ' + (name || '미입력'),
+                                                        'Email: ' + (email || '미입력'),
+                                                        '',
+                                                        'Message:',
+                                                        message || '미입력'
+                                                ];
 
-                                                                if (messageContainer) {
-                                                                        messageContainer.textContent = successText;
-                                                                        messageContainer.classList.add('success');
-                                                                        messageContainer.classList.remove('error');
-                                                                        messageContainer.hidden = false;
-                                                                }
+                                                var mailto = 'mailto:yjisc@naver.com'
+                                                        + '?subject=' + encodeURIComponent(subject)
+                                                        + '&body=' + encodeURIComponent(bodyLines.join('\n'));
 
-                                                                return;
+                                                try {
+                                                        window.location.href = mailto;
+
+                                                        if (messageContainer) {
+                                                                messageContainer.textContent = successText;
+                                                                messageContainer.classList.add('success');
+                                                                messageContainer.classList.remove('error');
+                                                                messageContainer.hidden = false;
                                                         }
 
-                                                        return response.json().then(function(body) {
-                                                                var message = body && body.error ? body.error : errorText;
-                                                                throw new Error(message);
-                                                        }).catch(function(error) {
-                                                                throw (error instanceof Error ? error : new Error(errorText));
-                                                        });
-                                                }).catch(function(error) {
+                                                        form.reset();
+                                                } catch (error) {
                                                         if (messageContainer) {
-                                                                messageContainer.textContent = error && error.message ? error.message : errorText;
+                                                                messageContainer.textContent = errorText;
                                                                 messageContainer.classList.add('error');
                                                                 messageContainer.classList.remove('success');
                                                                 messageContainer.hidden = false;
                                                         }
-                                                });
+                                                }
                                         });
                                 })();
                         </script>

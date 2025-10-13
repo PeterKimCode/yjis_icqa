@@ -204,6 +204,10 @@ body.is-scrolled #header.alt {
   display: none !important;
 }
 
+.contact-form .actions {
+  margin-top: 1.75rem;
+}
+
 .contact-form .form-result {
   margin-top: 1.5rem;
   padding: 1rem 1.25rem;
