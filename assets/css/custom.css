@@ -346,8 +346,20 @@ body.is-scrolled #header.alt {
 
 #banner .logo img {
   width: 100%;
-  max-width: clamp(140px, 40vw, 260px);
+  max-width: clamp(140px, 45vw, 220px);
   height: auto;
+}
+
+@media screen and (min-width: 768px) {
+  #banner .logo img {
+    max-width: clamp(220px, 32vw, 320px);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  #banner .logo img {
+    max-width: clamp(280px, 24vw, 420px);
+  }
 }
 
 /* inline form layout */
