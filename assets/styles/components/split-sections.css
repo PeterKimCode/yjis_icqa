@@ -1,0 +1,97 @@
+/*
+ * Full-bleed split sections used across the qualification highlights.
+ */
+.split-wrapper {
+  padding: 0 !important;
+  background: transparent;
+}
+
+.split {
+  display: flex !important;
+  align-items: stretch;
+  min-height: var(--split-min-height, 520px);
+  height: var(--split-height, 70vh);
+}
+
+.split .pane {
+  position: relative;
+  flex: 1 1 50%;
+}
+
+.split .pane.image {
+  overflow: hidden;
+}
+
+.split .pane.image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.split .pane.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 5vw, 64px);
+}
+
+.split .pane.content > .max {
+  width: min(800px, 90%);
+  color: #edf2f7;
+}
+
+.split.tone-a {
+  background: var(--split-tone-a);
+}
+
+.split.tone-b {
+  background: var(--split-tone-b);
+}
+
+.split.reverse {
+  flex-direction: row-reverse;
+}
+
+.split h2 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(28px, 3.2vw, 40px);
+  letter-spacing: 0.1em;
+}
+
+.split p {
+  font-size: clamp(16px, 1.3vw, 18px);
+  line-height: 1.75;
+  opacity: 0.92;
+}
+
+@media (max-width: 980px) {
+  .split {
+    flex-direction: column;
+    height: auto;
+    min-height: unset;
+  }
+
+  .split .pane {
+    flex: 1 1 auto;
+  }
+
+  .split .pane.image {
+    height: 40vh;
+    min-height: 260px;
+  }
+
+  .split.reverse {
+    flex-direction: column;
+  }
+
+  .split .pane.content {
+    padding: 28px 20px;
+  }
+}
+
+.split > *:nth-child(n + 3) {
+  display: none !important;
+}

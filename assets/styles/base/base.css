@@ -1,0 +1,51 @@
+/*
+ * Global base styles that sit on top of the HTML5 UP reset.
+ * These rules only cover cross-cutting typography and accessibility helpers.
+ */
+body {
+  font-family: var(--font-sans, "Pretendard", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif);
+}
+
+a {
+  color: var(--color-brand, #0ea5e9);
+}
+
+a:hover,
+a:focus {
+  color: var(--color-brand-dark, #0c4a6e);
+}
+
+.button.primary {
+  background: var(--color-brand, #0ea5e9);
+  border-color: var(--color-brand, #0ea5e9);
+  color: var(--color-brand-contrast, #ffffff);
+  transition: background-color var(--transition-snappy), border-color var(--transition-snappy),
+    color var(--transition-snappy);
+}
+
+.button.primary:hover,
+.button.primary:focus {
+  background: var(--color-brand-dark, #0c4a6e);
+  border-color: var(--color-brand-dark, #0c4a6e);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
+input[aria-invalid="true"] {
+  outline: 2px solid var(--color-error, #dc2626);
+  background-color: #fff5f5;
+}
+
+.error-text {
+  color: var(--color-error, #dc2626);
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0;
+}
