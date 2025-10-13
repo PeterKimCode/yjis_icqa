@@ -356,9 +356,10 @@ body.is-scrolled #header.alt {
   }
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 981px) {
   #banner .logo img {
-    max-width: clamp(280px, 24vw, 420px);
+    width: min(1169px, 100%);
+    max-width: none;
   }
 }
 
