@@ -960,15 +960,15 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
 
 /* 내부 배치: mm 단위 고정 여백/그리드 */
 .cert-header{ position:absolute; left:18mm; right:18mm; top:18mm; }
-.cert-brand{ display:flex; align-items:center; gap:8mm; }
-.cert-brand .logo{ width:22mm; height:22mm; display:flex; align-items:center; justify-content:center }
+.cert-brand{ display:flex; align-items:center; gap:45mm; }
+.cert-brand .logo{ width:22mm; height:22mm; display:flex; align-items:center; justify-content:left }
 .cert-brand h3{ margin:0; font: 800 7mm/1.1 Inter, system-ui, sans-serif; color:#0b1628; }
 
 .cert-title{ position:absolute; left:18mm; right:18mm; top:48mm;
   font: 900 13mm/1.1 "Playfair Display", Georgia, serif; color:#1f2937;
   border-bottom: 2mm solid var(--cert-primary); padding-bottom: 3mm;
 }
-.cert-sub{ position:absolute; left:18mm; right:18mm; top:78mm;
+.cert-sub{ position:absolute; left:18mm; right:18mm; top:82mm;
   font: 600 3.6mm/1.6 Inter, system-ui, sans-serif; letter-spacing:.08em; color:#6b7280;
 }
 .cert-name{ position:absolute; left:18mm; right:18mm; top:88mm;
@@ -983,7 +983,7 @@ input[aria-invalid="true"]{outline:2px solid #dc2626;background-color:#fff5f5}
 .cert-field .value{ margin-top:1.5mm; font: 700 4mm/1.2 Inter, system-ui, sans-serif; }
 
 /* 서명/봉인 영역 고정 */
-.cert-footer{ position:absolute; left:18mm; right:18mm; bottom:22mm; display:flex; justify-content:space-between; align-items:flex-end }
+.cert-footer{ position:absolute; left:18mm; right:25mm; bottom:22mm; display:flex; justify-content:space-between; align-items:flex-end }
 .cert-sign .line{ width:60mm; height:.8mm; background:var(--cert-primary) }
 .cert-sign .label{ margin-top:2mm; font: 600 3.4mm/1 Inter, system-ui, sans-serif; color:#6b7280 }
 
