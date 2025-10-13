@@ -1,0 +1,29 @@
+/*
+ * Contact form enhancements, including status messaging styles.
+ */
+.contact-form .honeypot {
+  display: none !important;
+}
+
+.contact-form .actions {
+  margin-top: 1.75rem;
+}
+
+.contact-form .form-result {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: rgba(15, 23, 42, 0.05);
+  color: var(--color-text-on-light, #0f172a);
+  font-weight: 500;
+}
+
+.contact-form .form-result.success {
+  color: var(--color-success, #16a34a);
+  border-left: 0.25rem solid var(--color-success, #16a34a);
+}
+
+.contact-form .form-result.error {
+  color: var(--color-error, #dc2626);
+  border-left: 0.25rem solid var(--color-error, #dc2626);
+}
