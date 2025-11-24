@@ -1,7 +1,7 @@
 # Stay in touch with the association
-icqa.us@yahoo.com<br>
+icqa.us@gmail.com<br>
 +1-208-685-2541<br>
-yjisc@naver.com<br>
-+63-917-845-5065<br>
-hanyoungcc@naver.com<br>
-+82-10-6265--8428<br>
+icqaasia@gmail.com<br>
++63-917-328-1779<br>
+icqako@gmail.com<br>
++82-10-5909-9320<br>
